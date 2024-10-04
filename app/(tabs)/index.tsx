@@ -10,8 +10,8 @@ export default function Page() {
   useEffect(() => {
     async function loadFonts() {
       await Font.loadAsync({
-        'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
-        'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
+        'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
+        'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
       });
       setFontsLoaded(true);
     }
@@ -73,7 +73,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignItems: 'center', 
     justifyContent: 'center', 
-    marginTop: '20%'
+    marginTop: '20%',
+    elevation: 10,
+
+    //ios
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
   },
   welcome: {
     color: '#226752',
