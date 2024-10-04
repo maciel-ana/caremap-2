@@ -1,70 +1,100 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Pressable, Text, StyleSheet, View } from 'react-native';
+import { useState, useEffect} from 'react'
+import { Link } from 'expo-router';
+import { MaterialIcons } from '@expo/vector-icons';
+import * as Font from 'expo-font';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+export default function Page() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
-export default function HomeScreen() {
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
+        'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
+      });
+      setFontsLoaded(true);
+    }
+    loadFonts();
+  }, []);
+
+  if (!fontsLoaded) {
+    return null; 
+  }
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <Link href="./index" asChild>
+        <Pressable>
+          <Text style={styles.title}>
+            Care
+            <Text style={styles.map}>map</Text>
+          </Text>
+        </Pressable>
+      </Link>
+      <View style={styles.circle}>
+        <Text style={styles.welcome}>Bem Vindo ao</Text>
+        <Text style={styles.welcome }>CareMap!</Text>
+        <View style={styles.line}></View>
+        <Text style={styles.textWelcome}>
+          Nosso app conecta pacientes {'\n'}
+          com doenças raras a hospitais{'\n'}
+          especializados de forma fácil.
+        </Text>
+        <Link href="../screens/Welcome" style={styles.arrow}>
+          <MaterialIcons name="arrow-forward" size={24} color="#000"  />
+        </Link>
+      </View>
+    </View>
   );
 }
-
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
     alignItems: 'center',
-    gap: 8,
+    backgroundColor: '#619C95',
+    fontFamily: 'Poppins'
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  title: {
+    paddingTop: '20%',
+    paddingVertical: 8,
+    color: '#226752',
+    fontSize: 30,
+    fontWeight: 'bold',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  map: {
+    color: '#ffffff',
+    fontWeight: '300',
   },
-});
+  circle: {
+    width: 320, 
+    height: 320,
+    borderRadius: 200, 
+    backgroundColor: '#ffffff',
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    marginTop: '20%'
+  },
+  welcome: {
+    color: '#226752',
+    fontSize: 27,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  line: {
+    width: '55%',
+    height: 1, 
+    backgroundColor: 'black',
+    marginTop: '5%',
+  },
+  textWelcome: {
+    color: '#000000',
+    fontSize: 15,
+    textAlign: 'center',
+    paddingTop: '8%',
+    fontWeight: '300',
+  },
+  arrow: {
+    paddingTop: '10%'
+  }
+})
