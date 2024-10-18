@@ -9,7 +9,7 @@ export default function Page() {
           <Text style={styles.map}>Map</Text>
         </Text>
       <Image 
-        source={require('../../../assets/images/doctors.png')}
+        source={require('../../../../assets/images/doctors.png')}
         style={styles.image}
       />
         <View style={styles.circle}>
