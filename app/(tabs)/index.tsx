@@ -41,7 +41,7 @@ export default function Page() {
           com doenças raras a hospitais{'\n'}
           especializados de forma fácil.
         </Text>
-        <Link href="../screens/Welcome" style={styles.arrow}>
+        <Link href="../screens/bemVindo/Welcome" style={styles.arrow}>
           <MaterialIcons name="arrow-forward" size={24} color="#000"  />
         </Link>
       </View>
