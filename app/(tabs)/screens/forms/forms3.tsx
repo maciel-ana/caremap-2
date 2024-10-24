@@ -104,6 +104,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingHorizontal: width * 0.05,
     paddingVertical: height * 0.02,
+    backgroundColor: "white"
+
   },
 
   titulo: {
