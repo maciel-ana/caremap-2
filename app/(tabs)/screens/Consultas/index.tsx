@@ -292,14 +292,14 @@ const styles = StyleSheet.create({
   timeSlot: {
     borderWidth: 1,
     borderColor: '#226752',
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 10,
     margin: 5,
     width: '45%',
     alignItems: 'center',
   },
   selectedTimeSlot: {
-    backgroundColor: '#226752',
+    backgroundColor: '#22675287',
   },
   timeSlotText: {
     color: 'black',
@@ -317,9 +317,10 @@ const styles = StyleSheet.create({
     marginTop: 30,
     backgroundColor: '#226752',
     padding: 15,
-    borderRadius: 5,
+    borderRadius: 15,
     alignItems: 'center',
-    width: '100%',
+    height: 50,
+    width:200
   },
   confirmButtonText: {
     color: 'white',
