@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#619C95',
+    backgroundColor: 'rgba(34, 103, 82, 0.7)', // Cor com 70% de opacidade
     fontFamily: 'Poppins'
   },
   title: {
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
   circle: {
-    width: 320, 
-    height: 320,
+    width: 350, 
+    height: 350,
     borderRadius: 200, 
     backgroundColor: '#ffffff',
     alignItems: 'center', 
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   welcome: {
     color: '#226752',
     fontSize: 27,
-    fontWeight: 'bold',
+    fontWeight: '800',
     textAlign: 'center',
   },
   line: {

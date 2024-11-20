@@ -21,7 +21,7 @@ export default function Page() {
           </Text>
         <Pressable style={styles.text}>
             <Link href="./screens/Welcome">
-                <Text >COMEÇAR</Text>
+                <Text >Começar</Text>
             </Link>
         </Pressable>
         </View>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'center',
         alignItems: 'center',
-        backgroundColor: '#619C95',
+        backgroundColor: 'rgba(34, 103, 82, 0.7)', // Cor com 70% de opacidade
         fontFamily: 'Inter',
       },
       title: {
@@ -47,6 +47,8 @@ const styles = StyleSheet.create({
       },
       map: {
         color: '#ffffff',
+        fontWeight: '300',
+
       },
       image: {
         position: 'absolute',
@@ -75,8 +77,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#226752', 
         borderRadius: 20, 
-        paddingVertical: 10, 
-        paddingHorizontal: 30, 
+        paddingVertical: 8, 
+        paddingHorizontal: 23, 
         backgroundColor: '#fff', 
         shadowColor: '#000', 
         shadowOffset: { width: 0, height: 2 },

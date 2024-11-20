@@ -8,48 +8,13 @@ interface HospitaisProps {
 }
 
 const data = [
-  {
-    id: '1',
-    title: 'Hospital Beneficência Portuguesa',
-    subtitle: '10Km de você',
-    imageUri: require('../../../../assets/images/hosp1.jpg'),
-},
-  {
-    id: '2',
-    title: 'Hospital das clínicas fmusp',
-    subtitle: '10Km de você',
-    imageUri: require('../../../../assets/images/hosp2.jpg'),
-  },
-  {
-    id: '3',
-    title: 'Hospital de Câncer de São Paulo',
-    subtitle: '10Km de você',
-    imageUri: require('../../../../assets/images/hosp3.jpg'),
-  },
-  {
-    id: '4',
-    title: 'Hospital Sírio-Libanês',
-    subtitle: '10Km de você',
-    imageUri: require('@/assets/images/hosp4.jpg'),
-  },
-  {
-    id: '5',
-    title: 'Hospital Infantil Sabará',
-    subtitle: '10Km de você',
-    imageUri: require('../../../../assets/images/hosp5.webp'),
-  },
-  {
-    id: '6',
-    title: 'Hospital de Coração (HCor)',
-    subtitle: '10Km de você',
-    imageUri: require('../../../../assets/images/hosp1.jpg'),
-  },
-  {
-    id: '6',
-    title: 'Hospital de Reabilitação de Anomalias Craniofaciais',
-    subtitle: '10Km de você',
-    imageUri: require('../../../../assets/images/hosp1.jpg'),
-  },
+  { id: '1', title: 'Hospital Beneficência Portuguesa', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp1.jpg') },
+  { id: '2', title: 'Hospital das Clínicas FMUSP', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp2.jpg') },
+  { id: '3', title: 'Hospital de Câncer de São Paulo', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp3.jpg') },
+  { id: '4', title: 'Hospital Sírio-Libanês', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp4.jpg') },
+  { id: '5', title: 'Hospital Infantil Sabará', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp5.webp') },
+  { id: '6', title: 'Hospital de Coração (HCor)', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp1.jpg') },
+  { id: '7', title: 'Hospital de Reabilitação de Anomalias Craniofaciais', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp1.jpg') },
 ];
 
 const Hospitais: React.FC<HospitaisProps> = ({ navigation }) => {
@@ -57,9 +22,9 @@ const Hospitais: React.FC<HospitaisProps> = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const renderItem = ({ item }: { item: { title: string; subtitle: string; imageUri: string } }) => (
+  const renderItem = ({ item }: { item: { title: string; subtitle: string; imageUri: any } }) => (
     <View style={styles.itemContainer}>
-      <Image source={{ uri: item.imageUri }} style={styles.image} />
+      <Image source={item.imageUri} style={styles.image} />
       <View style={styles.textContainer}>
         <Text style={styles.itemTitle}>{item.title}</Text>
         <Text style={styles.itemSubtitle}>{item.subtitle}</Text>
@@ -99,7 +64,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#226752',
     textAlign: 'center',
-    top: -35
+    marginBottom: 20,
   },
   list: {
     paddingVertical: 10,
@@ -108,20 +73,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 15,
-    left: 30,
-    
+    paddingHorizontal: 20,
   },
   image: {
     width: 70,
     height: 70,
-    borderRadius: 40, // Círculo
-    marginRight: 10,
+    borderRadius: 40,
+    marginRight: 15,
   },
   textContainer: {
     flex: 1,
   },
   itemTitle: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#226752',
   },

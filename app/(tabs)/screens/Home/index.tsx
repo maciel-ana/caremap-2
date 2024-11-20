@@ -104,10 +104,10 @@ const styles = StyleSheet.create({
       right: 29,
     },
     mapp: {
-      fontSize: 18,
-      fontWeight: '300',
+      fontSize: 20,
+      fontWeight: '200',
       color: 'black',
-      top: -13,
+      top: -15,
       left: 20,
     },
     servicesTitle: {
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
       top:29,
     },
     mapButton: {
-      backgroundColor: '#3b8065',
+      backgroundColor: '#DCEAE6',
       borderRadius: 20,
       alignSelf: 'flex-start',
       width: 120,
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
       left: 30
     },
     mapButtonText: {
-      color: '#fff',
+      color: '#619C95',
       textAlign: 'center', // Adicionando para centralizar o texto horizontalmente
       lineHeight: 30, // Definindo a altura da linha igual à altura do botão para centralizar verticalmente
       fontSize: 15

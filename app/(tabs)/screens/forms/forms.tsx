@@ -1,11 +1,12 @@
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
-import { Link } from 'expo-router';
 import React, { useState } from 'react';
-
-const MyComponent = () => {
-  const navigation = useNavigation();
-}
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+} from 'react-native';
+import { Link } from 'expo-router';
 
 const App = () => {
   const [name, setName] = useState('');
@@ -23,12 +24,11 @@ const App = () => {
   };
 
   return (
+    
     <View style={styles.container}>
       <Text style={styles.title}>
         Care
-        <Text style={styles.map}>
-          Map
-        </Text>
+        <Text style={styles.map}>map</Text>
       </Text>
 
       <Text style={styles.subtitle}>Dados pessoais</Text>
@@ -37,36 +37,37 @@ const App = () => {
         value={name}
         onChangeText={setName}
         placeholder="Nome completo"
+        placeholderTextColor="#aaa"
       />
       <TextInput
         style={styles.input}
         value={data}
         onChangeText={setData}
         placeholder="Data de nascimento"
+        placeholderTextColor="#aaa"
       />
-      
+
       <Text style={[styles.subtitle, styles.grayText]}>Gênero</Text>
       <View style={styles.genderContainer}>
-        <TouchableOpacity
-          style={[styles.genderBox, genero === 'feminino' && styles.selectedGender]}
-          onPress={() => setGenero('feminino')}
-        >
-          <Text style={styles.genderText}>Feminino</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.genderBox, genero === 'masculino' && styles.selectedGender]}
-          onPress={() => setGenero('masculino')}
-        >
-          <Text style={styles.genderText}>Masculino</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.genderBox, genero === 'outro' && styles.selectedGender]}
-          onPress={() => setGenero('outro')}
-        >
-          <Text style={styles.genderText}>Outro</Text>
-        </TouchableOpacity>
+        {['feminino', 'masculino', 'outro'].map((g) => (
+          <TouchableOpacity
+            key={g}
+            style={[
+              styles.genderBox,
+              genero === g && styles.selectedGender,
+            ]}
+            onPress={() => setGenero(g)}
+          >
+            <Text
+              style={[
+                styles.genderText,
+                genero === g && styles.selectedGenderText,
+              ]}
+            >
+              {g.charAt(0).toUpperCase() + g.slice(1)}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       <Text style={styles.subtitle}>Informações de contato</Text>
@@ -75,6 +76,7 @@ const App = () => {
         value={email}
         onChangeText={setEmail}
         placeholder="Email"
+        placeholderTextColor="#aaa"
         keyboardType="email-address"
       />
       <TextInput
@@ -82,14 +84,16 @@ const App = () => {
         value={tel}
         onChangeText={setTel}
         placeholder="Telefone"
+        placeholderTextColor="#aaa"
+        keyboardType="phone-pad"
       />
 
       <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.continueButton} onPress={handleSubmit}>
-            <Link href="../forms/forms2" >
-              <Text style={styles.buttonText}>CONTINUE</Text>
-            </Link>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.continueButton} onPress={handleSubmit}>
+          <Link href="../forms/forms2" style={styles.link}>
+            <Text style={styles.buttonText}>CONTINUE</Text>
+          </Link>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -98,78 +102,91 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'flex-start',
     justifyContent: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 20,
-    backgroundColor: "white"
+    paddingVertical: 30,
+    backgroundColor: '#f9f9f9',
   },
   title: {
     textAlign: 'center',
-    paddingVertical: 15, // Aumentado para mais espaçamento
     color: '#226752',
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
-    width: '100%',
+    marginBottom: 20,
+    top: -40
   },
   map: {
-    color: '#ffffff',
+    color: '#444',
+    fontWeight: '300',
   },
   subtitle: {
-    fontSize: 22, // Aumentado o tamanho da fonte
+    fontSize: 20,
     color: '#226752',
-    marginVertical: 15, // Aumentado o espaçamento
-    alignSelf: 'flex-start',
+    marginBottom: 10,
+    fontWeight: '600',
   },
   grayText: {
-    fontSize: 18, // Aumentado o tamanho da fonte
-    color: '#888',
+    fontSize: 18,
+    color: '#226752',
+    marginTop: 10,
   },
   input: {
-    height: 50, // Aumentado para mais espaço interno
-    borderColor: 'gray',
+    height: 50,
+    borderColor: '#ddd',
     borderWidth: 1,
-    marginBottom: 20, // Aumentado o espaçamento entre inputs
-    paddingHorizontal: 10,
-    width: '100%',
-    borderRadius: 10,
+    marginBottom: 15,
+    paddingHorizontal: 15,
+    borderRadius: 15,
+    fontSize: 16,
+    backgroundColor: '#fff',
+    color: '#333',
   },
   genderContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 25, // Aumentado o espaçamento
+    marginBottom: 20,
   },
   genderBox: {
-    width: '30%',
-    height: 60, // Aumentado para mais espaço interno
-    borderWidth: 1,
-    borderColor: 'gray',
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
-    borderRadius: 10,
+    justifyContent: 'center',
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 15,
+    marginHorizontal: 5,
+    backgroundColor: '#f5f5f5',
   },
   selectedGender: {
     backgroundColor: '#d1e7dd',
+    borderColor: '#226752',
   },
   genderText: {
+    color: '#555',
+    fontSize: 16,
+  },
+  selectedGenderText: {
     color: '#226752',
+    fontWeight: 'bold',
   },
   buttonContainer: {
-    marginTop: 30, // Aumentado para mais espaço acima do botão
-    width: '100%',
+    marginTop: 30,
     alignItems: 'center',
   },
   continueButton: {
     backgroundColor: '#226752',
-    paddingVertical: 12, // Aumentado para mais espaço interno
-    paddingHorizontal: 20,
-    borderRadius: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 50,
+    borderRadius: 25,
+    elevation: 3,
   },
   buttonText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 18,
-    textAlign: 'center',
+    fontWeight: '600',
+  },
+  link: {
+    textDecorationLine: 'none',
   },
 });
 

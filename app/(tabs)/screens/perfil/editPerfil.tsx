@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Image,
+  ScrollView,
+} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const EditProfileScreen = () => {
@@ -15,243 +24,178 @@ const EditProfileScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Título da página acima da imagem de perfil */}
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* Título */}
       <Text style={styles.title}>Editar Perfil</Text>
 
-      {/* Container para imagem de perfil e as novas imagens */}
+      {/* Imagem de perfil e botões */}
       <View style={styles.profileContainer}>
         <Image
           style={styles.profileImage}
-          source={require('../../../../assets/images/perfil.png')} // Imagem local
+          source={require('../../../../assets/images/perfil.png')}
         />
-        <View style={styles.extraImagesContainer}>
-          <View>
-            <Image
-              style={styles.extraImage14}
-              source={require('../../../../assets/images/circulo2.png')} // Imagem adicional
-            />
-            <Image
-              style={styles.extraImage46}
-              source={require('../../../../assets/images/trocarimg.png')} // Outra imagem adicional
-            />
-          </View>
-        </View>
+        <TouchableOpacity>
+          <Image
+            style={styles.extraImage}
+            source={require('../../../../assets/images/trocarimg.png')}
+          />
+        </TouchableOpacity>
       </View>
 
-      {/* Campo de Nome */}
+      {/* Campos de texto */}
       <TextInput
         style={styles.input}
         placeholder="Nome"
-        placeholderTextColor="#226752" // Cor do placeholder
+        placeholderTextColor="grey"
         value={name}
         onChangeText={setName}
-        keyboardType="default"
       />
-
-      {/* Campo de Email */}
       <TextInput
         style={styles.input}
         placeholder="Email"
-        placeholderTextColor="#226752" // Cor do placeholder
+        placeholderTextColor="grey"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
       />
-
-      {/* Campo de Nome de Usuário */}
       <TextInput
         style={styles.input}
         placeholder="Nome de Usuário"
-        placeholderTextColor="#226752" // Cor do placeholder
+        placeholderTextColor="grey"
         value={username}
         onChangeText={setUsername}
-        keyboardType="default"
       />
-
-      {/* Campo de Data de Nascimento */}
       <TextInput
         style={styles.input}
         placeholder="Data de Nascimento"
-        placeholderTextColor="#226752" // Cor do placeholder
+        placeholderTextColor="grey"
         value={birthdate}
         onChangeText={setBirthdate}
         keyboardType="numeric"
       />
-
-      {/* Campo de Senha com ícone de olho */}
       <View style={styles.passwordContainer}>
         <TextInput
           style={styles.input}
           placeholder="Senha"
-          placeholderTextColor="#226752" // Cor do placeholder
+          placeholderTextColor="grey"
           value={password}
           onChangeText={setPassword}
           secureTextEntry={showPassword}
         />
         <TouchableOpacity
-          style={styles.eyeIconContainer}
           onPress={() => setShowPassword(!showPassword)}
+          style={styles.eyeIconContainer}
+          accessibilityLabel="Mostrar ou ocultar senha"
         >
           <Image
-            source={require('../../../../assets/images/olhos.png')} // Ícone de olho
             style={styles.eyeIcon}
+            source={require('../../../../assets/images/olhos.png')}
           />
         </TouchableOpacity>
       </View>
 
-      {/* Botão de Salvar */}
-      <TouchableOpacity style={styles.SalvarButton} onPress={handleSave}>
-        <Text style={styles.loginButtonText}>Salvar</Text>
+      {/* Botão de salvar */}
+      <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+        <Text style={styles.saveButtonText}>Salvar</Text>
       </TouchableOpacity>
 
-      {/* Opção Sair com imagem sobreposta */}
-      <TouchableOpacity style={styles.formContainer}>
-        <View style={styles.imageContainer}>
-          {/* Imagem de fundo */}
-          <Image
-            style={styles.formImageset}
-            source={require('../../../../assets/images/retangulo.png')} // Imagem de fundo
-          />
-          {/* Seta sobreposta */}
-          <MaterialIcons
-            style={styles.arrowImage}
-            name="arrow-forward"
-          />
-        </View>
-        <Text style={styles.optionText2}> Voltar </Text>
+      {/* Botão de voltar */}
+      <TouchableOpacity style={styles.backButton} onPress={() => Alert.alert('Voltando...')}>
+        <MaterialIcons name="arrow-back" size={24} color="#226752" />
+        <Text style={styles.backButtonText}>Voltar</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
-// Estilos
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    flexGrow: 1,
     padding: 20,
     backgroundColor: '#ffffff',
-    marginBottom: -10,
-    borderRadius: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+    color: '#226752',
+    top: 50
   },
   profileContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 23,
-    top: -30,
+    marginBottom: 30,
+    top: 60
+
   },
   profileImage: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    left: 128,
   },
-  extraImagesContainer: {
-    right: -12,
-    top: 15,
-    marginLeft: 40, // Espaço entre a imagem de perfil e as imagens adicionais
-  },
-  extraImage14: {
-    width: 25,
-    top: 27,
-    left: 50,
-    height: 25,
-    borderRadius: 15, // Para imagens circulares
-  },
-  extraImage46: {
-    width: 16, // Ajuste o tamanho conforme necessário
-    height: 16,
-    position: 'absolute',
-    top: 31,
-    left: 54.5,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'medium',
-    marginBottom: 20,
-    textAlign: 'center',
-    top: -27,
+  extraImage: {
+    width: 24,
+    height: 24,
+    marginTop: -20,
+    alignSelf: 'center',
   },
   input: {
-    width: '100%',
-    top: 7,
-    padding: 5,
+    width: '90%',
+    padding: 12,
+    paddingLeft: 17,
     borderRadius: 20,
     backgroundColor: '#e2e2e2',
-    marginBottom: 18,
-    paddingLeft: 13, // Espaço adicional à esquerda
-    color: '#000000', // Cor do texto dentro da caixa de texto
+    marginBottom: 20,
+    top: 90,
+    left: 20
+
   },
   passwordContainer: {
+    position: 'relative',
     width: '100%',
     marginBottom: 20,
-    position: 'relative',
+    
   },
   eyeIconContainer: {
     position: 'absolute',
-    right: 10,
-    top: 15, // Ajuste o alinhamento vertical
+    right: 30,
+    top: 100,
+
   },
   eyeIcon: {
     width: 20,
     height: 20,
     resizeMode: 'contain',
   },
-  SalvarButton: {
+  saveButton: {
     backgroundColor: '#226752',
-    padding: 7,
-    borderRadius: 20,
-    borderWidth: 4,
-    borderColor: '#ffffff',
+    width: 342,
+    padding: 15,
+    borderRadius: 26,
     alignItems: 'center',
-    marginBottom: 3,
-    marginTop: 12,
-    top: 10,
-    width: '32%',
-    marginLeft: 124,
-    opacity: 0.7,
+    marginTop: 10,
+    top: 80,
+    left:18
+
   },
-  loginButtonText: {
-    color: '#ffffff',
+  saveButtonText: {
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    
   },
-  arrowImage: {
-    width: 20, // Ajuste o tamanho conforme necessário
-    left: 103.8,
-    top: 15,
-    height: 20,
-    alignSelf: 'center', // Centraliza a seta horizontalmente
-    marginTop: 10, // Espaçamento acima da seta
-    transform: [{ rotate: '180deg' }], // Gira a seta para a esquerda
-  },
-  formContainer: {
+  backButton: {
     flexDirection: 'row',
-    marginLeft: 32,
     alignItems: 'center',
-    marginBottom: 22,
-    top: -28,
+    justifyContent: 'center',
+    marginTop: 20,
+    top: 80
+
   },
-  imageContainer: {
-    position: 'relative', // Container relativo para permitir posicionamento absoluto
-    width: 35,
-    height: 35,
-  },
-  formImageset: {
-    top: 52,
-    left: 103,
-    width: '95%',
-    height: '95%',
-  },
-  optionText2: {
-    top: 50,
-    left: 110,
-    fontSize: 17,
-    fontWeight: 'medium',
-    backgroundColor: 'transparent',
-    padding: 0,
-    alignSelf: 'center',
+  backButtonText: {
+    fontSize: 16,
+    color: '#226752',
+    marginLeft: 5,
   },
 });
 

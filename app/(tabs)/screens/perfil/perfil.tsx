@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-
 const UserProfileScreen = () => {
   return (
     <View style={styles.container}>
@@ -32,35 +31,34 @@ const UserProfileScreen = () => {
       {/* Seção de opções */}
       <View style={styles.optionsContainer}>
         {/* Opção Formulário */}
-        <TouchableOpacity style={styles.formContainer}>
+        <TouchableOpacity style={styles.optionContainer}>
           <Image
-            style={styles.formImage}
+            style={styles.optionImage}
             source={require('../../../../assets/images/retangulo.png')} // Imagem local do formulário
           />
           <Text style={styles.optionText}>Formulário</Text>
         </TouchableOpacity>
 
         {/* Opção Política de Privacidade */}
-        <TouchableOpacity style={styles.policyContainer}>
+        <TouchableOpacity style={styles.optionContainer}>
           <Image
-            style={styles.policyImage}
+            style={styles.optionImage}
             source={require('../../../../assets/images/retangulo.png')} // Imagem local para Política de Privacidade
           />
           <Text style={styles.optionText}>Política de Privacidade</Text>
         </TouchableOpacity>
 
         <Image
-        source={require('../../../../assets/images/linha.png')} // Caminho da imagem da linha
-        style={styles.divider2}
-      />
+          source={require('../../../../assets/images/linha.png')} // Caminho da imagem da linha
+          style={styles.divider2}
+        />
 
         {/* Opção Sair com imagem sobreposta */}
-        <TouchableOpacity style={styles.formContainer}>
+        <TouchableOpacity style={styles.optionContainer}>
           <View style={styles.imageContainer}>
-            
             {/* Imagem de fundo */}
             <Image
-              style={styles.formImageset}
+              style={styles.optionImage}
               source={require('../../../../assets/images/retangulo.png')} // Imagem de fundo
             />
             {/* Seta sobreposta */}
@@ -69,31 +67,14 @@ const UserProfileScreen = () => {
               name="arrow-forward"
             />
           </View>
-          <Text style={styles.optionText2}>Sair</Text>
+          <Text style={styles.optionText}>Sair</Text>
         </TouchableOpacity>
 
         {/* Novo exemplo de sobreposição de imagens */}
         <View style={styles.imageContainer}>
-          {/* Imagem de fundo */}
-          <Image
-            style={styles.bola}
-            source={require('../../../../assets/images/circulo.png')} // Imagem de fundo
-          />
-          {/* Imagem sobreposta */}
-          <MaterialIcons
-            style={styles.seta}
-            name="arrow-forward"
-          />
-
-          <Image
-            style={styles.bola2}
-            source={require('../../../../assets/images/circulo.png')} // Imagem de fundo
-          />
-          {/* Imagem sobreposta */}
-          <MaterialIcons
-            style={styles.seta2}
-            name="arrow-forward"
-          />
+       
+         
+        
         </View>
       </View>
     </View>
@@ -105,133 +86,101 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#F5F5F5',
-    marginBottom: 5,
+    paddingTop: 40,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 90,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginBottom: 20,
+    top: 50
   },
   userName: {
-    fontSize: 22,
-    fontWeight: '400',
-    marginBottom: 2,
-    top: -80,
+    fontSize: 24,
+    fontWeight: '600',
+    marginBottom: 5,
+    color: '#226752',
+    top: 50
+
   },
   userHandle: {
-    fontSize: 17.5,
+    fontSize: 16,
     color: 'gray',
-    marginBottom: 10,
-    top: -80,
+    marginBottom: 20,
+    top: 50
+
   },
   editProfileButton: {
     backgroundColor: '#226752',
-    opacity: 0.7,
-    paddingHorizontal: 30,
     paddingVertical: 8,
+    paddingHorizontal: 25,
     borderRadius: 20,
-    top: -75,
-    marginBottom: 40,
+    marginBottom: 30,
     alignItems: 'center',
+    top: 40
+
   },
   editProfileText: {
     color: '#ffffff',
-    fontWeight: '900',
+    fontWeight: '600',
     fontSize: 16,
   },
   divider: {
-    width: '90%',
+    width: '100%',
     height: 1,
-    marginBottom: 30,
-    top: -55,
+    backgroundColor: '#ddd',
+    marginVertical: 20,
+    top: 25
+
   },
   divider2: {
-    width: '103%',
+    width: '100%',
     height: 1,
-    top: -65,
-    marginLeft: -4,
-  },
+    backgroundColor: '#ddd',
+    marginVertical: 20,
+    top: 50
 
+  },
   optionsContainer: {
     width: '100%',
     paddingHorizontal: 20,
   },
-  formContainer: {
+  optionContainer: {
     flexDirection: 'row',
-    marginLeft: 32,
     alignItems: 'center',
-    marginBottom: 22,
-    top: -28,
+    marginBottom: 20,
+    top: 50
+
   },
-  imageContainer: {
-    position: 'relative', // Container relativo para permitir posicionamento absoluto
+  optionImage: {
     width: 35,
     height: 35,
+    marginRight: 20,
   },
-  formImage: {
-    width: '11%',
-    height: '150%',
+  optionText: {
+    fontSize: 18,
+    color: '#226752',
+    flex: 1,
   },
-  formImageset: {
-    top: 5,
-    left: 1,
-    width: '100%',
-    height: '100%',
+  imageContainer: {
+    position: 'relative',
+    width: 40,
+    height: 40,
+    marginRight: 20,
   },
   arrowImage: {
     position: 'absolute',
-    width: 20,
-    height: 20,
-    top: 22,
-    left: 19,
-    transform: [{ translateX: -10 }, { translateY: -10 }],
-  },
-  policyContainer: {
-    marginLeft: 32,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 90,
-    top: -30,
-  },
-  policyImage: {
-    width: 35,
-    height: 33,
-    marginRight: 12,
-  },
-  optionText: {
-    fontSize: 16,
-    backgroundColor: 'transparent',
-    padding: 0,
-    alignSelf: 'center',
-  },
-  optionText2: {
-    top: 5,
-    left: 4.5,
-    fontSize: 16,
-    backgroundColor: 'transparent',
-    padding: 0,
-    alignSelf: 'center',
-  },
-  bola: {
-  top: -249,
-  left: 256,
-  },
-  seta: {
-    top: -262,
-    left: 262,
+    width: 30,
+    height: 30,
+    top: 10,
+    left: 12,
   },
 
-  bola2: {
-    top: -228,
-    left: 256.5,
-    },
-    seta2: {
-      top: -241,
-      left: 263,
-    },
+ 
+ 
 });
 
 export default UserProfileScreen;

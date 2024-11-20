@@ -4,19 +4,19 @@ import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 const CareMap: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
-      
       <View style={styles.header}>
         <Text style={styles.title}>
-          <Text style={styles.bold}>Care</Text><Text style={styles.map}>map</Text>
+          <Text style={styles.bold}>Care</Text>
+          <Text style={styles.map}>map</Text>
         </Text>
       </View>
 
       <Image
-        source={{ uri: 'assets/images/img.png' }} 
+        source={require('../../../../assets/images/img.png')} // Substituído por require para evitar problemas
         style={styles.image}
       />
 
-        <View style={styles.content}>
+      <View style={styles.content}>
         <Text style={styles.diseaseTitle}>Fibrose Cística</Text>
         <Text style={styles.description}>
           Uma doença genética que afeta principalmente os pulmões e o sistema digestivo, causando problemas respiratórios crônicos e dificuldades na digestão.
@@ -41,14 +41,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  
   header: {
     alignItems: 'center',
     paddingVertical: 20,
-    marginTop: 40, 
+    marginTop: 40,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     color: '#226752',
     textAlign: 'center',
   },
@@ -56,24 +55,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   map: {
-    color: '#000000', 
-  },
+    color: '#000000',
+    fontWeight: '300',
 
+  },
   image: {
-    width: '100%',
-    height: 200,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    width: 379,
+    height: 230,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     resizeMode: 'cover',
+    left:20
   },
-
   content: {
     padding: 20,
     backgroundColor: '#fff',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     marginHorizontal: 15,
-    marginTop: 60, 
+    marginTop: -15, // Reduzido para integrar melhor ao header
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -81,14 +81,14 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   diseaseTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#226752',
     marginBottom: 10,
   },
   description: {
     fontSize: 16,
-    color: '#000000',
+    color: '#333',
     marginBottom: 20,
   },
   symptomsTitle: {
@@ -99,14 +99,15 @@ const styles = StyleSheet.create({
   },
   symptoms: {
     fontSize: 14,
-    color: '#000000',
+    color: '#444',
     lineHeight: 22,
   },
   readMore: {
     fontSize: 14,
-    color: '#999ea3',
+    color: '#619C95',
     marginTop: 20,
     textAlign: 'center',
+    textDecorationLine: 'underline', // Para indicar que é clicável
   },
 });
 

@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
   },
   buttonTextEnter: {
     color: 'white',              // Cor do texto do botão "Entre"
-    fontSize: 14,                // Tamanho do texto do botão
-    fontWeight: '400',          // Negrito
+    fontSize: 16,                // Tamanho do texto do botão
+    fontWeight: 'bold',          // Negrito
   },
   buttonCreateAccount: {
     backgroundColor: 'white',    

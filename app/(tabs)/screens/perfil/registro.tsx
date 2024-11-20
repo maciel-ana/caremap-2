@@ -4,13 +4,23 @@ import { Link } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const LoginScreen = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(true);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleLogin = () => {
+    if (password !== confirmPassword) {
+      Alert.alert('Erro', 'As senhas não coincidem.');
+      return;
+    }
+    if (!email || !password) {
+      Alert.alert('Erro', 'Por favor, preencha todos os campos.');
+      return;
+    }
+    // Simulação de login com dados fixos
     if (email === 'test@example.com' && password === 'password') {
       Alert.alert('Login bem-sucedido', 'Bem-vindo!');
     } else {
@@ -44,10 +54,9 @@ const LoginScreen = () => {
         style={styles.input}
         placeholder="Nome"
         placeholderTextColor="#666"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="default"
-        autoCapitalize="none"
+        value={name}
+        onChangeText={setName}
+        autoCapitalize="words"
       />
 
       {/* Campo de Email */}
@@ -64,46 +73,40 @@ const LoginScreen = () => {
       {/* Campo de Senha */}
       <View style={styles.passwordContainer}>
         <TextInput
-          style={styles.inputWithIcon} // Alterando para manter o mesmo tamanho das outras caixas
+          style={styles.inputWithIcon}
           placeholder="Senha"
           placeholderTextColor="#666"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry={showPassword}
+          secureTextEntry={!showPassword}
         />
         <TouchableOpacity
           style={styles.eyeIconContainer}
           onPress={() => setShowPassword(!showPassword)}
         >
-          <Image
-            source={require('../../../../assets/images/olhos.png')}
-            style={styles.eyeIcon}
-          />
+          <Image source={require('../../../../assets/images/olhos.png')} style={styles.eyeIcon} />
         </TouchableOpacity>
       </View>
 
       {/* Campo de Confirmação de Senha */}
       <View style={styles.passwordContainer}>
         <TextInput
-          style={styles.inputWithIcon} // Alterando para manter o mesmo tamanho das outras caixas
+          style={styles.inputWithIcon}
           placeholder="Confirme a senha"
           placeholderTextColor="#666"
           value={confirmPassword}
           onChangeText={setConfirmPassword}
-          secureTextEntry={showConfirmPassword}
+          secureTextEntry={!showConfirmPassword}
         />
         <TouchableOpacity
           style={styles.eyeIconContainer}
           onPress={() => setShowConfirmPassword(!showConfirmPassword)}
         >
-          <Image
-            source={require('../../../../assets/images/olhos.png')}
-            style={styles.eyeIcon}
-          />
+          <Image source={require('../../../../assets/images/olhos.png')} style={styles.eyeIcon} />
         </TouchableOpacity>
       </View>
 
-      {/* Botão de Registro com borda */}
+      {/* Botão de Registro */}
       <TouchableOpacity style={styles.RegistroButton} onPress={handleLogin}>
         <Link href="../forms/forms">
           <Text style={styles.loginButtonText}>Registrar</Text>
@@ -113,7 +116,6 @@ const LoginScreen = () => {
   );
 };
 
-// Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -135,54 +137,61 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 25,
+    top: -60, 
+    left: 15
   },
   careText: {
     color: '#226752',
-    fontSize: 19,
+    fontSize: 25,
     fontWeight: 'bold',
-    top: -41,
   },
   mapText: {
     color: '#000000',
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: '300',
-    top: -41,
   },
   image: {
-    top: -18,
     width: 100,
     height: 100,
     resizeMode: 'contain',
     alignSelf: 'center',
     marginBottom: 20,
+    top: -40,
+    left: 15
+
   },
   title: {
     fontSize: 24,
-    top: -33,
     fontWeight: 'bold',
     marginBottom: 15,
     textAlign: 'center',
-    color: '#333',
+    color: '#226752',
+    top: -30,
+    left: 15
   },
   input: {
-    width: '105%',
-    padding: 8,
+    width: '100%',
+    padding: 12,
     paddingLeft: 17,
     borderRadius: 20,
     backgroundColor: '#e2e2e2',
-    marginBottom: 27, // Espaçamento entre os campos
+    marginBottom: 20,
+    top: -30,
+    left: 15
   },
   passwordContainer: {
-    width: '105%' ,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#e2e2e2',
     borderRadius: 20,
-    marginBottom: 27,
+    marginBottom: 20,
+    top: -30,
+    left: 15
   },
   inputWithIcon: {
-    flex: 1, // Garante que a largura da caixa de texto seja consistente
-    padding: 8,
+    flex: 1,
+    padding: 12,
     paddingLeft: 17,
     borderRadius: 20,
     backgroundColor: '#e2e2e2',
@@ -198,20 +207,16 @@ const styles = StyleSheet.create({
   },
   RegistroButton: {
     backgroundColor: '#226752',
-    padding: 6,
-    borderRadius: 20,
-    borderWidth: 4,
-    borderColor: '#ffffff',
+    padding: 15,
+    borderRadius: 26,
     alignItems: 'center',
-    marginBottom: 8,
-    marginTop: 12,
-    width: '85%',
-    marginLeft: 33,
-    opacity: 0.7,
-  },
+    marginTop: 10,
+    top: -30,
+    left: 15  },
+    
   loginButtonText: {
     color: '#ffffff',
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });

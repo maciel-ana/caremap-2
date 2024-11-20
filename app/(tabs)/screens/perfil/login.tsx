@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableWithoutFeedback, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  Alert,
+  Image,
+} from 'react-native';
 import { Link } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -17,14 +26,12 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Seta no lado esquerdo */}
-      <View style={styles.arrowContainer}>
-        <TouchableOpacity onPress={() => Alert.alert('Voltar')}>
+      {/* Seta para voltar */}
+      <TouchableOpacity style={styles.arrowContainer} onPress={() => Alert.alert('Voltar')}>
         <MaterialIcons name="arrow-back" size={30} color="#1e1e1e" />
-        </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
 
-      {/* CareMap no topo */}
+      {/* Logo do aplicativo */}
       <View style={styles.careMapContainer}>
         <Text style={styles.careText}>Care</Text>
         <Text style={styles.mapText}>map</Text>
@@ -36,7 +43,7 @@ const LoginScreen = () => {
       {/* Título */}
       <Text style={styles.title}>Login</Text>
 
-      {/* Campo de e-mail */}
+      {/* Campos de entrada */}
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -46,25 +53,21 @@ const LoginScreen = () => {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-
-      {/* Campo de senha */}
       <TextInput
         style={styles.input}
         placeholder="Senha"
         placeholderTextColor="#666"
         value={password}
         onChangeText={setPassword}
-        secureTextEntry={true}
+        secureTextEntry
       />
 
-      {/* Botão Esqueceu a Senha sem o efeito de retângulo */}
+      {/* Esqueceu a senha */}
       <TouchableWithoutFeedback onPress={() => Alert.alert('Recuperação de senha', 'Função ainda não implementada.')}>
-        <View>
-          <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
-        </View>
+        <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
       </TouchableWithoutFeedback>
 
-      {/* Botão de Login com borda */}
+      {/* Botão de login */}
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Link href="../forms/forms">
           <Text style={styles.loginButtonText}>Login</Text>
@@ -78,29 +81,24 @@ const LoginScreen = () => {
         <View style={styles.line} />
       </View>
 
-      {/* Botões de Redes Sociais */}
+      {/* Ícones de redes sociais */}
       <View style={styles.socialIconsContainer}>
-        {/* Imagem do Facebook */}
         <TouchableOpacity style={styles.socialButton}>
           <Image
-            source={require('../../../../assets/images/facebook.png')} // Caminho para a imagem do Facebook
-            style={styles.facebookImage} // Estilo específico para a imagem do Facebook
+            source={require('../../../../assets/images/facebook.png')}
+            style={styles.socialImage}
           />
         </TouchableOpacity>
-
-        {/* Imagem do Google */}
         <TouchableOpacity style={styles.socialButton}>
           <Image
-            source={require('../../../../assets/images/google.png')} // Caminho para a imagem do Google
-            style={styles.googleImage} // Estilo específico para a imagem do Google
+            source={require('../../../../assets/images/google.png')}
+            style={styles.socialImage}
           />
         </TouchableOpacity>
-
-        {/* Imagem da Apple */}
         <TouchableOpacity style={styles.socialButton}>
           <Image
-            source={require('../../../../assets/images/apple.png')} // Caminho para a imagem da Apple
-            style={styles.appleImage} // Estilo específico para a imagem da Apple
+            source={require('../../../../assets/images/apple.png')}
+            style={[styles.socialImage, styles.appleImage]}
           />
         </TouchableOpacity>
       </View>
@@ -108,135 +106,108 @@ const LoginScreen = () => {
   );
 };
 
-// Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginRight: '9%',
     justifyContent: 'center',
     padding: 20,
     backgroundColor: '#F5F5F5',
-    borderRadius: 30,
+    borderRadius: 20,
     margin: 10,
   },
   arrowContainer: {
     position: 'absolute',
-    left: 20, // Distância do lado esquerdo da tela
-    top: 33, // Distância do topo
-    zIndex: 1, // Para garantir que o ícone fique acima de outros componentes
+    left: 20,
+    top: 30,
+    zIndex: 1,
   },
   careMapContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 25,
+    marginBottom: 20,
+    top: -70,
+    fontSize: 20,
+
   },
   careText: {
     color: '#226752',
-    fontSize: 19,
-    fontWeight: 'bold',
-    top: -24, // Mover o texto mais para cima
+    fontWeight: 'bold',    fontSize: 22,
+
   },
   mapText: {
-    color: '#000000',
-    fontSize: 18,
+    color: '#000',
     fontWeight: '300',
-    top: -24, // Mover o texto mais para cima
+    fontSize: 22,
+
   },
+
   image: {
     width: 100,
     height: 100,
-    resizeMode: 'contain',
     alignSelf: 'center',
     marginBottom: 20,
   },
   title: {
-
     fontSize: 24,
-    top: -15,
     fontWeight: 'bold',
-    marginBottom: 20,
     textAlign: 'center',
-    color: '#333',
+    marginBottom: 20,
+    color: '#226752',
   },
   input: {
     width: '100%',
-    top: 5,
-    padding: 8,
-    paddingLeft: 20,
-    marginLeft: 10,
-    borderWidth: 0,
+    padding: 10,
     borderRadius: 20,
-    marginBottom: 28,
     backgroundColor: '#e2e2e2',
+    marginBottom: 20,
+    paddingHorizontal: 20,
   },
   forgotPassword: {
-    color: '#aeaeae', // Cor do texto de "Esqueceu a senha"
+    color: '#aeaeae',
     textAlign: 'right',
     marginBottom: 20,
+  },
+  loginButton: {
+    backgroundColor: '#226752',
+    padding: 10,
+    borderRadius: 20,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  loginButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   continueContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 20,
-    justifyContent: 'flex-start', // Mudar para flex-start para alinhar à esquerda
-    paddingLeft: 8, // Adicionado para mover todo o conteúdo mais para a direita
+    marginVertical: 20,
   },
   line: {
-    width: '30%', // Definindo uma largura fixa para a linha
+    flex: 1,
     height: 1,
     backgroundColor: '#a0a0a0',
-    marginHorizontal: 5, // Espaço entre as linhas e o texto
+    marginHorizontal: 5,
   },
   continueWith: {
     fontSize: 16,
     color: '#a0a0a0',
-    textAlign: 'center',
-    marginHorizontal: 9, // Espaço extra para o texto
   },
   socialIconsContainer: {
-    flexDirection: 'row', // Alinhamento horizontal dos ícones
-    justifyContent: 'center', // Centraliza os ícones
-    marginTop: 55, // Aumenta o espaço acima dos ícones para movê-los para baixo
-    paddingLeft: 33, // Move os ícones ligeiramente para a direita
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   socialButton: {
-    alignItems: 'center',
-    marginHorizontal: 13, // Espaço entre os ícones
+    marginHorizontal: 10,
   },
-  facebookImage: {
-    width: 30, // Ajuste o tamanho da imagem do Facebook conforme necessário
-    height: 30,
-    resizeMode: 'contain', // Para manter a proporção
-  },
-  googleImage: {
-    width: 30, // Ajuste o tamanho da imagem do Google conforme necessário
-    height: 30,
-    resizeMode: 'contain', // Para manter a proporção
+  socialImage: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
   },
   appleImage: {
-    width: 32, // Ajuste o tamanho da imagem da Apple conforme necessário
-    height: 40,
-    resizeMode: 'contain', // Para manter a proporção
-    marginTop:-8,
-  },
-  loginButton: {
-    backgroundColor: '#226752',
-    padding: 6,
-    borderRadius: 20,
-    borderWidth: 4,
-    borderColor: '#ffffff',
-    alignItems: 'center',
-    marginBottom: 8,
-    marginTop: 12,
-    width: '85%',
-    marginLeft: 33,
-    opacity: 0.7,
-  },
-  loginButtonText: {
-    color: '#ffffff',
-    fontSize: 15,
-    fontWeight: 'bold',
+    width: 36,
   },
 });
 
