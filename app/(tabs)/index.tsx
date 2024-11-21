@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'rgba(34, 103, 82, 0.7)', // Cor com 70% de opacidade
+    backgroundColor: 'rgba(34, 103, 82, 0.8)', // Cor com 70% de opacidade
     fontFamily: 'Poppins'
   },
   title: {
