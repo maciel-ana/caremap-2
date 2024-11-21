@@ -33,7 +33,9 @@ const LoginScreen = () => {
       {/* Seta no lado esquerdo */}
       <View style={styles.arrowContainer}>
         <TouchableOpacity onPress={() => Alert.alert('Voltar')}>
-          <MaterialIcons name="arrow-back" size={30} color="#1e1e1e" />
+          <Link href="../screens/entrar/Index">
+            <MaterialIcons name="arrow-back" size={30} color="#1e1e1e" />
+          </Link>
         </TouchableOpacity>
       </View>
 
@@ -119,17 +121,13 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginRight: '9%',
     justifyContent: 'center',
-    padding: 20,
     backgroundColor: '#F5F5F5',
-    borderRadius: 30,
-    margin: 10,
   },
   arrowContainer: {
     position: 'absolute',
     left: 20,
-    top: 33,
+    top: "9%",
     zIndex: 1,
   },
   careMapContainer: {
@@ -138,7 +136,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 25,
     top: -60, 
-    left: 15
   },
   careText: {
     color: '#226752',
@@ -157,7 +154,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 20,
     top: -40,
-    left: 15
 
   },
   title: {
@@ -167,31 +163,30 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#226752',
     top: -30,
-    left: 15
   },
   input: {
-    width: '100%',
-    padding: 12,
+    width: '90%',
+    padding: 16,
     paddingLeft: 17,
     borderRadius: 20,
     backgroundColor: '#e2e2e2',
     marginBottom: 20,
     top: -30,
-    left: 15
+    left: 20
   },
   passwordContainer: {
-    width: '100%',
+    width: '90%',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#e2e2e2',
     borderRadius: 20,
     marginBottom: 20,
     top: -30,
-    left: 15
+    left: 20
   },
   inputWithIcon: {
     flex: 1,
-    padding: 12,
+    padding: 16,
     paddingLeft: 17,
     borderRadius: 20,
     backgroundColor: '#e2e2e2',
@@ -210,10 +205,11 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 26,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 15,
     top: -30,
-    left: 15  },
-    
+    width: "90%",
+    left: 20  
+  },  
   loginButtonText: {
     color: '#ffffff',
     fontSize: 16,

@@ -69,13 +69,6 @@ const UserProfileScreen = () => {
           </View>
           <Text style={styles.optionText}>Sair</Text>
         </TouchableOpacity>
-
-        {/* Novo exemplo de sobreposição de imagens */}
-        <View style={styles.imageContainer}>
-       
-         
-        
-        </View>
       </View>
     </View>
   );
@@ -173,8 +166,8 @@ const styles = StyleSheet.create({
   },
   arrowImage: {
     position: 'absolute',
-    width: 30,
-    height: 30,
+    width: 70,
+    height: 70,
     top: 10,
     left: 12,
   },

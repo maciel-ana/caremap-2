@@ -20,8 +20,8 @@ export default function Page() {
             poucos cliques.
           </Text>
         <Pressable style={styles.text}>
-            <Link href="./screens/Welcome">
-                <Text >Começar</Text>
+            <Link href="../screens/entrar/Index">
+                <Text style={styles.text}>Começar</Text>
             </Link>
         </Pressable>
         </View>

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Link } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
+import { FaGoogle } from 'react-icons/fa';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -28,7 +29,9 @@ const LoginScreen = () => {
     <View style={styles.container}>
       {/* Seta para voltar */}
       <TouchableOpacity style={styles.arrowContainer} onPress={() => Alert.alert('Voltar')}>
-        <MaterialIcons name="arrow-back" size={30} color="#1e1e1e" />
+        <Link href="../screens/entrar/Index">
+          <MaterialIcons name="arrow-back" size={30} color="#1e1e1e" />
+        </Link>
       </TouchableOpacity>
 
       {/* Logo do aplicativo */}
@@ -84,22 +87,13 @@ const LoginScreen = () => {
       {/* Ícones de redes sociais */}
       <View style={styles.socialIconsContainer}>
         <TouchableOpacity style={styles.socialButton}>
-          <Image
-            source={require('../../../../assets/images/facebook.png')}
-            style={styles.socialImage}
-          />
+          <MaterialIcons name="facebook" size={40} style={styles.imageFacebook}></MaterialIcons>
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialButton}>
-          <Image
-            source={require('../../../../assets/images/google.png')}
-            style={styles.socialImage}
-          />
+          <Image source={require('../../../../assets/images/social.png')} style={styles.socialImage}></Image>
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialButton}>
-          <Image
-            source={require('../../../../assets/images/apple.png')}
-            style={[styles.socialImage, styles.appleImage]}
-          />
+         <MaterialIcons name="apple" size={44} style={styles.imageApple}></MaterialIcons>
         </TouchableOpacity>
       </View>
     </View>
@@ -110,61 +104,57 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
     backgroundColor: '#F5F5F5',
-    borderRadius: 20,
-    margin: 10,
   },
   arrowContainer: {
     position: 'absolute',
     left: 20,
-    top: 30,
+    top: "9%",
     zIndex: 1,
   },
   careMapContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 20,
-    top: -70,
+    top: "-9%",
     fontSize: 20,
-
   },
   careText: {
     color: '#226752',
-    fontWeight: 'bold',    fontSize: 22,
-
+    fontWeight: 'bold',    
+    fontSize: 22,
   },
   mapText: {
     color: '#000',
     fontWeight: '300',
     fontSize: 22,
-
   },
-
   image: {
     width: 100,
     height: 100,
     alignSelf: 'center',
     marginBottom: 20,
+    marginTop: "-5%"
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 30,
     color: '#226752',
   },
   input: {
-    width: '100%',
-    padding: 10,
+    width: '90%',
+    padding: 16,
     borderRadius: 20,
     backgroundColor: '#e2e2e2',
     marginBottom: 20,
     paddingHorizontal: 20,
+    left: 20
   },
   forgotPassword: {
     color: '#aeaeae',
     textAlign: 'right',
+    right: 25,
     marginBottom: 20,
   },
   loginButton: {
@@ -173,6 +163,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     marginVertical: 10,
+    width: "90%",
+    left: 20
   },
   loginButtonText: {
     color: '#fff',
@@ -183,6 +175,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 20,
+    marginTop: "10%"
   },
   line: {
     flex: 1,
@@ -202,13 +195,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   socialImage: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     resizeMode: 'contain',
+    marginTop: 3
   },
-  appleImage: {
-    width: 36,
+  imageFacebook: {
+    flexDirection: 'row'
   },
+  imageApple: {
+    marginTop: -4
+  }
 });
 
 export default LoginScreen;

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity, Pressable } from "react-native";
+import { Link } from 'expo-router';
 import Constants from 'expo-constants';
+
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -17,12 +19,16 @@ export default function Indexn() {
 
         {/* Botão para acessar a conta */}
         <TouchableOpacity style={styles.buttonEnter}>
-          <Text style={styles.buttonTextEnter}>Entre</Text>
+            <Link href="../screens/perfil/Login">
+              <Text style={styles.buttonTextEnter}>Entre</Text>
+            </Link>
         </TouchableOpacity>
 
         {/* Botão para criar uma conta */}
         <TouchableOpacity style={styles.buttonCreateAccount}>
-          <Text style={styles.buttonTextCreateAccount}>Crie uma conta</Text>
+            <Link href="../screens/perfil/Registro">
+              <Text style={styles.buttonTextCreateAccount}>Crie uma conta</Text>
+            </Link>
         </TouchableOpacity>
       </View>
     </View>
@@ -66,27 +72,26 @@ const styles = StyleSheet.create({
     fontWeight: '200',
   },
   buttonEnter: {
-    backgroundColor: '#619C95', // Cor do botão "Entre"
-    borderRadius: 15,            // Bordas arredondadas
-    paddingVertical: 10,         // Padding vertical
-    paddingHorizontal: 20,       // Padding horizontal
-    marginVertical: 10,          // Espaço entre os botões
-    width: 237,                 // Largura do botão
+    backgroundColor: '#619C95',
+    borderRadius: 15,            
+    textAlign: 'center',
+    alignItems: 'center',       
+    paddingVertical: 15,        
+    marginVertical: 10,         
+    width: 237,                 
     height:48 ,
-    alignItems: 'center',        // Centraliza o texto no botão
-    
   },
   buttonTextEnter: {
-    color: 'white',              // Cor do texto do botão "Entre"
-    fontSize: 16,                // Tamanho do texto do botão
-    fontWeight: 'bold',          // Negrito
+    color: 'white',              
+    fontSize: 16,                
+    fontWeight: 'bold',         
   },
   buttonCreateAccount: {
     backgroundColor: 'white',    
     borderRadius: 15,             
     borderWidth: 2,             
     borderColor: '#619C95',       // Cor da borda
-    paddingVertical: 10,          // Padding vertical
+    paddingVertical: 15,          // Padding vertical
     paddingHorizontal: 20,        // Padding horizontal
     marginVertical: 10,           // Espaço entre os botões
     width: 237,      
