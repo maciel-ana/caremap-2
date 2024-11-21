@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationProp } from '@react-navigation/native';
 
@@ -7,14 +7,50 @@ interface HospitaisProps {
   navigation: NavigationProp<any>;
 }
 
+// Coordenadas para cada hospital
 const data = [
-  { id: '1', title: 'Hospital Beneficência Portuguesa', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp1.jpg') },
-  { id: '2', title: 'Hospital das Clínicas FMUSP', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp2.jpg') },
-  { id: '3', title: 'Hospital de Câncer de São Paulo', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp3.jpg') },
-  { id: '4', title: 'Hospital Sírio-Libanês', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp4.jpg') },
-  { id: '5', title: 'Hospital Infantil Sabará', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp5.webp') },
-  { id: '6', title: 'Hospital de Coração (HCor)', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp1.jpg') },
-  { id: '7', title: 'Hospital de Reabilitação de Anomalias Craniofaciais', subtitle: '10Km de você', imageUri: require('../../../../assets/images/hosp1.jpg') },
+  { 
+    id: '1', 
+    title: 'Hospital Beneficência Portuguesa', 
+    imageUri: require('../../../../assets/images/hosp1.jpg'),
+    coordinate: { latitude: -23.567618, longitude: -46.660894 }
+  },
+  { 
+    id: '2', 
+    title: 'Hospital das Clínicas FMUSP', 
+    imageUri: require('../../../../assets/images/hosp2.jpg'),
+    coordinate: { latitude: -23.557618, longitude: -46.669894 }
+  },
+  { 
+    id: '3', 
+    title: 'Hospital de Câncer de São Paulo', 
+    imageUri: require('../../../../assets/images/hosp3.jpg'),
+    coordinate: { latitude: -23.573618, longitude: -46.670894 }
+  },
+  { 
+    id: '4', 
+    title: 'Hospital Sírio-Libanês', 
+    imageUri: require('../../../../assets/images/hosp4.jpg'),
+    coordinate: { latitude: -23.577618, longitude: -46.690894 }
+  },
+  { 
+    id: '5', 
+    title: 'Hospital Infantil Sabará', 
+    imageUri: require('../../../../assets/images/hosp5.webp'),
+    coordinate: { latitude: -23.587618, longitude: -46.670894 }
+  },
+  { 
+    id: '6', 
+    title: 'Hospital de Coração (HCor)', 
+    imageUri: require('../../../../assets/images/hosp1.jpg'),
+    coordinate: { latitude: -23.597618, longitude: -46.680894 }
+  },
+  { 
+    id: '7', 
+    title: 'Hospital de Reabilitação de Anomalias Craniofaciais', 
+    imageUri: require('../../../../assets/images/hosp1.jpg'),
+    coordinate: { latitude: -23.607618, longitude: -46.690894 }
+  },
 ];
 
 const Hospitais: React.FC<HospitaisProps> = ({ navigation }) => {
@@ -22,12 +58,25 @@ const Hospitais: React.FC<HospitaisProps> = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const renderItem = ({ item }: { item: { title: string; subtitle: string; imageUri: any } }) => (
+  // Função para abrir o Google Maps com as coordenadas do hospital
+  const openDirections = (coordinate: { latitude: number; longitude: number }) => {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${coordinate.latitude},${coordinate.longitude}`;
+    Linking.openURL(url); // Abre o Google Maps com as direções
+  };
+
+  // Renderizando cada hospital na lista
+  const renderItem = ({ item }: { item: { title: string; subtitle: string; imageUri: any, coordinate: { latitude: number, longitude: number } } }) => (
     <View style={styles.itemContainer}>
       <Image source={item.imageUri} style={styles.image} />
       <View style={styles.textContainer}>
         <Text style={styles.itemTitle}>{item.title}</Text>
         <Text style={styles.itemSubtitle}>{item.subtitle}</Text>
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => openDirections(item.coordinate)} // Abrir mapa ao clicar
+        >
+          <Text style={styles.buttonText}>Abrir no Google Maps</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -52,7 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    paddingTop: 100,
+    paddingTop: 50,
   },
   backButton: {
     position: 'absolute',
@@ -65,6 +114,7 @@ const styles = StyleSheet.create({
     color: '#226752',
     textAlign: 'center',
     marginBottom: 20,
+    top: 20
   },
   list: {
     paddingVertical: 10,
@@ -92,6 +142,22 @@ const styles = StyleSheet.create({
   itemSubtitle: {
     fontSize: 12,
     color: '#666',
+  },
+  button: {
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: 'transparent', // Removendo fundo colorido
+    borderWidth: 1, // Adicionando uma borda fina
+    borderColor: '#226752', // Cor da borda (verde)
+    borderRadius: 15, // Bordas arredondadas
+    alignItems: 'center', // Centraliza o conteúdo horizontalmente
+    justifyContent: 'center', // Centraliza o conteúdo verticalmente
+  },
+  buttonText: {
+    color: '#226752', // Cor do texto (verde)
+    fontSize: 12, // Tamanho de fonte menor
+    fontWeight: '600', // Peso de fonte mais leve
   },
 });
 

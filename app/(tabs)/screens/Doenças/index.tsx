@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import HomeScreen from '../Home';
 
 const CareMap: React.FC = () => {
   return (
@@ -33,7 +32,6 @@ const CareMap: React.FC = () => {
 
         <Text style={styles.readMore}>Ler mais</Text>
       </View>
-      <HomeScreen/>
     </ScrollView>
   );
 };
