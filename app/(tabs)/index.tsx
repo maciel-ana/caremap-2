@@ -1,5 +1,5 @@
-import { Pressable, Text, StyleSheet, View } from 'react-native';
-import { useState, useEffect} from 'react'
+import { Pressable, Text, StyleSheet, View, Image } from 'react-native';
+import { useState, useEffect } from 'react';
 import { Link } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
@@ -26,15 +26,13 @@ export default function Page() {
     <View style={styles.container}>
       <Link href="./index" asChild>
         <Pressable>
-          <Text style={styles.title}>
-            Care
-            <Text style={styles.map}>map</Text>
-          </Text>
+          {/* Substituindo o texto "Care map" por uma logo */}
+          <Image source={require('../../assets/images/LOGO CORACÃO PNG.png')} style={styles.logo} />
         </Pressable>
       </Link>
       <View style={styles.circle}>
         <Text style={styles.welcome}>Bem Vindo ao</Text>
-        <Text style={styles.welcome }>CareMap!</Text>
+        <Text style={styles.welcome}>CareMap!</Text>
         <View style={styles.line}></View>
         <Text style={styles.textWelcome}>
           Nosso app conecta pacientes {'\n'}
@@ -48,26 +46,24 @@ export default function Page() {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'rgba(85, 146, 119, 0.7)', // Tom mais claro com 70% de opacidade
+    backgroundColor: 'rgba(72, 201, 143, 0.534)', // Opacidade reduzida para 0.1, deixando bem claro
     fontFamily: 'Poppins'
   },
   
-  title: {
-    paddingTop: '20%',
-    paddingVertical: 8,
-    color: '#1A4C3D', // Tom mais escuro
-    fontSize: 30,
-    fontWeight: 'bold',
+  
+  
+  logo: {
+    width: 150,  // Ajuste o tamanho conforme necessário
+    height: 50,  // Ajuste a altura conforme necessário
+    resizeMode: 'contain', // A imagem se ajusta proporcionalmente ao tamanho definido
+    top: 70,  // Alinha a logo na posição correta
   },
   
-  map: {
-    color: '#ffffff',
-    fontWeight: '300',
-  },
   circle: {
     width: 350, 
     height: 350,
@@ -75,10 +71,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignItems: 'center', 
     justifyContent: 'center', 
-    marginTop: '20%',
+    marginTop: '40%',
     elevation: 10,
-
-    //ios
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 2 },
     shadowOpacity: 0.5,
@@ -106,4 +100,4 @@ const styles = StyleSheet.create({
   arrow: {
     paddingTop: '10%'
   }
-})
+});

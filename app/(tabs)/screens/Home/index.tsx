@@ -27,8 +27,8 @@ const HomeScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.care}>Care</Text>
-        <Text style={styles.mapp}>map</Text>
+        {/* Substituindo o texto Care e map por uma imagem */}
+        <Image source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} style={styles.logo} />
       </View>
 
       <Text style={styles.servicesTitle}>Todos os serviços para {'\n'}sua saúde</Text>
@@ -92,150 +92,137 @@ const HomeScreen = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
-    container: {
-      padding: 16,
-      backgroundColor: '#fff',
+  container: {
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+  header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 35,
+  },
+    logo: {
+      width:53,  // Tamanho ajustado da largura (exemplo: 150)
+      height: 51,  // Tamanho ajustado da altura (exemplo: 50)
     },
-    header: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingVertical: 16,
-    },
-    care: {
-      fontSize: 25,
-      fontWeight: 'bold',
-      color: '#3b8065',
-      top: 15,
-      right: 29,
-    },
-    mapp: {
-      fontSize: 25,
-      fontWeight: '300',
-      color: 'black',
-      top: -22,
-      left: 33,
-    },
-    servicesTitle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: '#226752', // Cor do título
-      marginVertical: 16,
-      top: -20,
-      left: 10,
-    },
-    searchBarContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: '#f0f0f0',
-      borderRadius: 20,
-      marginVertical: 15,
-      top: -20
-    },
-    searchIcon: {
-      paddingHorizontal: 10,
-    },
-    searchBar: {
-      flex: 1,
-      padding: 10,
-      fontSize: 14,
-      borderRadius: 20,
-    },
-    services: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      marginVertical: 16,
-    },
-    serviceItem: {
-      alignItems: 'center',
-      top: -20
   
-    },
-    serviceIcon: {
-      width: 50,
-      height: 50,
-      marginBottom: 8,
-    },
-    mapContainer: {
-      backgroundColor: '#619C95',
-      padding: 15,
-      width: 390,
-      height:190,
-      borderRadius: 19,
-      marginVertical: 16,
-      top: -30,
-      right:5
+  servicesTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#226752', // Cor do título
+    marginVertical: 16,
+    top: -20,
+    left: 10,
+  },
+  searchBarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    borderRadius: 20,
+    marginVertical: 15,
+    top: -20
+  },
+  searchIcon: {
+    paddingHorizontal: 10,
+  },
+  searchBar: {
+    flex: 1,
+    padding: 10,
+    fontSize: 14,
+    borderRadius: 20,
+  },
+  services: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 16,
+  },
+  serviceItem: {
+    alignItems: 'center',
+    top: -20
+  },
+  serviceIcon: {
+    width: 50,
+    height: 50,
+    marginBottom: 8,
+  },
+  mapContainer: {
+    backgroundColor: '#619C95',
+    padding: 15,
+    width: 390,
+    height:190,
+    borderRadius: 19,
+    marginVertical: 16,
+    top: -30,
+    right:5
+  },
+  mapContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  mapImage: {
+    width: '50%',
+    height: '201%', // Ajusta a altura proporcionalmente
+    borderTopRightRadius: 20, // Apenas o canto superior direito arredondado
+    borderBottomRightRadius: 20, // Apenas o canto inferior direito arredondado
+    marginBottom: 10,
+    left: 17,
+    top: 38,
+    // Sombra aplicada na imagem
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
   
-    },
-    mapContent: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    mapImage: {
-      width: '50%',
-      height: '201%', // Ajusta a altura proporcionalmente
-      borderTopRightRadius: 20, // Apenas o canto superior direito arredondado
-      borderBottomRightRadius: 20, // Apenas o canto inferior direito arredondado
-      marginBottom: 10,
-      left: 17,
-      top: 38,
-      // Sombra aplicada na imagem
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-    },
-    
-    mapTextContainer: {
-      flex: 1,
-      marginRight: 10,
-      color: "#ffff"
-    },
-    mapText: {
-      color: '#fff',
-      fontSize: 17,
-      fontWeight: 'normal',
-      textAlign: 'center',
-      marginBottom: 10,
-      left: 7,
-      top:29,
-    },
-    mapButton: {
-      backgroundColor: '#DCEAE6',
-      borderRadius: 20,
-      alignSelf: 'flex-start',
-      width: 120,
-      height: 35,
-      justifyContent: 'center', // Adicionando isso para centralizar o conteúdo
-      alignItems: 'center', // Adicionando isso para garantir que o texto fique centralizado
-      display: 'flex', // Isso é necessário para o uso de justifyContent e alignItems
-      top: 40,
-      left: 30
-    },
-    mapButtonText: {
-      color: '#619C95',
-      textAlign: 'center', // Adicionando para centralizar o texto horizontalmente
-      lineHeight: 30, // Definindo a altura da linha igual à altura do botão para centralizar verticalmente
-      fontSize: 15
-    },
-    
-    specialistsContainer: {
-      marginVertical: 16,
-    },
-    specialistsTitle: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      color: "#226752",
-      top: -30
-    },
-    seeMore: {
-      color: '#3b8065',
-      alignSelf: 'flex-end',
-      marginVertical: 8,
-      top: -60
+  mapTextContainer: {
+    flex: 1,
+    marginRight: 10,
+    color: "#ffff"
+  },
+  mapText: {
+    color: '#fff',
+    fontSize: 17,
+    fontWeight: 'normal',
+    textAlign: 'center',
+    marginBottom: 10,
+    left: 7,
+    top:29,
+  },
+  mapButton: {
+    backgroundColor: '#DCEAE6',
+    borderRadius: 20,
+    alignSelf: 'flex-start',
+    width: 120,
+    height: 35,
+    justifyContent: 'center', // Adicionando isso para centralizar o conteúdo
+    alignItems: 'center', // Adicionando isso para garantir que o texto fique centralizado
+    display: 'flex', // Isso é necessário para o uso de justifyContent e alignItems
+    top: 40,
+    left: 30
+  },
+  mapButtonText: {
+    color: '#619C95',
+    textAlign: 'center', // Adicionando para centralizar o texto horizontalmente
+    lineHeight: 30, // Definindo a altura da linha igual à altura do botão para centralizar verticalmente
+    fontSize: 15
+  },
   
-    },
+  specialistsContainer: {
+    marginVertical: 16,
+  },
+  specialistsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: "#226752",
+    top: -30
+  },
+  seeMore: {
+    color: '#3b8065',
+    alignSelf: 'flex-end',
+    marginVertical: 8,
+    top: -60
+  },
   specialistsList: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -270,4 +257,5 @@ const styles = StyleSheet.create({
     color: '#999',
   },
 });
+
 export default HomeScreen;

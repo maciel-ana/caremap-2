@@ -7,10 +7,11 @@ const CareMap: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>
-          <Text style={styles.bold}>Care</Text>
-          <Text style={styles.map}>map</Text>
-        </Text>
+        {/* Substituindo o texto "Care map" por uma imagem */}
+        <Image
+          source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} // Caminho da logo (ajuste conforme necessário)
+          style={styles.logo}
+        />
       </View>
 
       <Image
@@ -64,17 +65,11 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     marginTop: 40,
   },
-  title: {
-    fontSize: 24,
-    color: '#226752',
-    textAlign: 'center',
-  },
-  bold: {
-    fontWeight: 'bold',
-  },
-  map: {
-    color: '#000000',
-    fontWeight: '300',
+  // Estilo da logo substituindo "Care map"
+  logo: {
+    width: 150,  // Ajuste o tamanho conforme necessário
+    height: 50,  // Ajuste o tamanho conforme necessário
+    resizeMode: 'contain',
   },
   image: {
     width: 379,

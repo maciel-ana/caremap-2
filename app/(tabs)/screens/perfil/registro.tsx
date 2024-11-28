@@ -96,10 +96,11 @@ const LoginScreen = () => {
       </View>
 
       {/* CareMap no topo */}
-      <View style={styles.careMapContainer}>
-        <Text style={styles.careText}>Care</Text>
-        <Text style={styles.mapText}>map</Text>
-      </View>
+      {/* Imagem no lugar do CareMap */}
+      <Image
+        source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} // Substitua com o nome da sua imagem
+        style={styles.logoImage}
+      />
 
       {/* Imagem acima do título */}
       <Image source={require('../../../../assets/images/perfil.png')} style={styles.image} />
@@ -196,22 +197,11 @@ const styles = StyleSheet.create({
     top: "9%",
     zIndex: 1,
   },
-  careMapContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 25,
-    top: -30, 
-  },
-  careText: {
-    color: '#226752',
-    fontSize: 25,
-    fontWeight: 'bold',
-  },
-  mapText: {
-    color: '#000000',
-    fontSize: 24,
-    fontWeight: '300',
+  logoImage: {
+    width: 52, // Ajuste o tamanho da logo
+    height: 50,
+    alignSelf: 'center',
+    marginBottom: 70,
   },
   image: {
     width: 100,

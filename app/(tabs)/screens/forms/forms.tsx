@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  Image,
 } from 'react-native';
-import { collection, addDoc, Timestamp, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 
 const App = () => {
   const [name, setName] = useState('');
@@ -28,21 +29,21 @@ const App = () => {
   const [detalhes, setDetalhes] = useState('');
 
   const limparInputs = () => {
-    setName("")
-    setData("")
-    setGenero("")
-    setEmail("")
-    setTel("")
-    setCidade("")
-    setCEP("")
-    setDoença("")
-    setTratamentos("")
-    setFrequencia("")
-    setMedicamentos("")
-    setAcompanhamento("")
-    setAcessibilidade("")
-    setDetalhes("")
-  }
+    setName("");
+    setData("");
+    setGenero("");
+    setEmail("");
+    setTel("");
+    setCidade("");
+    setCEP("");
+    setDoença("");
+    setTratamentos("");
+    setFrequencia("");
+    setMedicamentos("");
+    setAcompanhamento("");
+    setAcessibilidade("");
+    setDetalhes("");
+  };
 
   const handleSubmit = async () => {
     if (
@@ -61,10 +62,8 @@ const App = () => {
       acessibilidade &&
       detalhes
     ) {
-      
       try {
         const formDocRef = collection(db, "Formulario");
-
         await addDoc(formDocRef, {
           Nome: name,
           Data: data,
@@ -79,15 +78,15 @@ const App = () => {
           Medicamentos: medicamentos,
           Acompanhamento: acompanhamento,
           Acessibilidade: acessibilidade,
-          Detalhes: detalhes
-        })
+          Detalhes: detalhes,
+        });
 
-        // func para limpar os inputs
+        // Limpar os inputs após envio
         limparInputs();
 
         Alert.alert('Sucesso!', 'Formulário enviado com sucesso!');
       } catch (error) {
-        Alert.alert("Erro:", `${error}`)
+        Alert.alert("Erro:", `${error}`);
       }
     } else {
       Alert.alert('Erro', 'Preencha todos os campos obrigatórios!');
@@ -97,10 +96,11 @@ const App = () => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        {/* Formulário 1 */}
-        <Text style={styles.title}>
-          Care<Text style={styles.map}>map</Text>
-        </Text>
+        {/* Substituindo Caremap por logo */}
+        <View style={styles.logoContainer}>
+          <Image source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} style={styles.logo} />
+        </View>
+
         <Text style={styles.subtitle}>Dados Pessoais</Text>
         <TextInput
           style={styles.input}
@@ -137,18 +137,10 @@ const App = () => {
           {['feminino', 'masculino', 'outro'].map((g) => (
             <TouchableOpacity
               key={g}
-              style={[
-                styles.genderBox,
-                genero === g && styles.selectedGender,
-              ]}
+              style={[styles.genderBox, genero === g && styles.selectedGender]}
               onPress={() => setGenero(g)}
             >
-              <Text
-                style={[
-                  styles.genderText,
-                  genero === g && styles.selectedGenderText,
-                ]}
-              >
+              <Text style={[styles.genderText, genero === g && styles.selectedGenderText]}>
                 {g.charAt(0).toUpperCase() + g.slice(1)}
               </Text>
             </TouchableOpacity>
@@ -208,18 +200,10 @@ const App = () => {
           {['Sim', 'Não'].map((option) => (
             <TouchableOpacity
               key={option}
-              style={[
-                styles.genderBox,
-                acompanhamento === option && styles.selectedGender,
-              ]}
+              style={[styles.genderBox, acompanhamento === option && styles.selectedGender]}
               onPress={() => setAcompanhamento(option)}
             >
-              <Text
-                style={[
-                  styles.genderText,
-                  acompanhamento === option && styles.selectedGenderText,
-                ]}
-              >
+              <Text style={[styles.genderText, acompanhamento === option && styles.selectedGenderText]}>
                 {option}
               </Text>
             </TouchableOpacity>
@@ -258,19 +242,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#f9f9f9',
   },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: -10,
+  },
+  logo: {
+    width: 52,
+    height: 150,
+    resizeMode: 'contain',
+  },
   title: {
     fontSize: 25,
     color: '#226752',
     textAlign: 'center',
     marginBottom: 50,
     fontWeight: 'bold',
-    top: 30,
-  
-
   },
   map: {
     fontWeight: '300',
-    color: "black"
+    color: 'black',
   },
   subtitle: {
     fontSize: 20,

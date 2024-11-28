@@ -4,28 +4,32 @@ import { Link } from 'expo-router';
 export default function Page() {
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>
-          Care
-          <Text style={styles.map}>Map</Text>
-        </Text>
-      <Image 
-        source={require('../../../../assets/images/doctors.png')}
-        style={styles.image}
-      />
-        <View style={styles.circle}>
-          <Text style={styles.textWelcome}>
-            Utilize nossa ferramenta de{'\n'}
-            localização e tenha acesso a{'\n'}
-            informações detalhadas em{'\n'}
-            poucos cliques.
-          </Text>
-        <Pressable style={styles.text}>
-            <Link href="../screens/entrar/Index">
-                <Text style={styles.text}>Começar</Text>
-            </Link>
-        </Pressable>
+            <Text style={styles.title}>
+                <Image
+                    source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} // Caminho da sua imagem
+                    style={styles.logo}
+                />
+            </Text>
+
+            <Image 
+                source={require('../../../../assets/images/doctors.png')}
+                style={styles.image}
+            />
+
+            <View style={styles.circle}>
+                <Text style={styles.textWelcome}>
+                    Utilize nossa ferramenta de{'\n'}
+                    localização e tenha acesso a{'\n'}
+                    informações detalhadas em{'\n'}
+                    poucos cliques.
+                </Text>
+                <Pressable style={styles.text}>
+                    <Link href="../screens/entrar/Index">
+                        <Text style={styles.text}>Começar</Text>
+                    </Link>
+                </Pressable>
+            </View>
         </View>
-      </View>
     )
 }
 
@@ -36,28 +40,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(34, 103, 82, 0.7)', // Cor com 70% de opacidade
         fontFamily: 'Inter',
-      },
-      title: {
+    },
+    title: {
         alignItems: 'center',
         paddingTop: '20%',
         paddingVertical: 8,
         color: '#226752',
         fontSize: 30,
         fontWeight: 'bold',
-      },
-      map: {
-        color: '#ffffff',
-        fontWeight: '300',
-
-      },
-      image: {
+    },
+    logo: {
+        width: 60,  // Ajuste o tamanho conforme necessário
+        height: 60, // Ajuste o tamanho conforme necessário
+        resizeMode: 'contain',  // Mantém a proporção da imagem
+    },
+    image: {
         position: 'absolute',
         width: '50%',
         height: '30%',
         marginTop: '50%',
-        zIndex: 1
-      },
-      circle: {
+        zIndex: 1,
+    },
+    circle: {
         width: 320, 
         height: 320,
         borderRadius: 200, 
@@ -65,15 +69,15 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'center', 
         marginTop: '55%', 
-      },
-      textWelcome: {
+    },
+    textWelcome: {
         color: '#000000',
         fontSize: 19,
         textAlign: 'center',
         paddingTop: '16%',
         fontWeight: '300',
-      },
-      text: {
+    },
+    text: {
         borderWidth: 1,
         borderColor: '#226752', 
         borderRadius: 20, 
@@ -85,6 +89,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 2,
         elevation: 2, 
-        marginTop: '10%'
-      },
+        marginTop: '10%',
+    },
 })

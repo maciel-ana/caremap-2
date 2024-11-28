@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { Link, useNavigation } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
-import { FaGoogle } from 'react-icons/fa';
 import { auth } from '@/firebase_config';
 
 const LoginScreen = () => {
@@ -25,51 +24,40 @@ const LoginScreen = () => {
   }
 
   const handleLogin = () => {
-    if (email != '' && password != '') {
+    if (email !== '' && password !== '') {
       auth.signInWithEmailAndPassword(email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        Alert.alert(
-          "Usuário autenticado com sucesso",
-          "Seja bem vindo(a)!"
-        );
-
-        const userInfo = {
-            email: user.email,
-            uid: user.uid,
-        };
-
-        // lógica para enviar o login para a outras pags
-        
-        limparInputs();
-
-        navigation.navigate('screens/perfil/perfil', { userInfo });
-      })
-      .catch(error => {
-        let errorMessage;
-
-        switch (error.code) {
-          case 'auth/user-not-found':
-            errorMessage = 'Usuário não encontrado. Verifique seu email e tente novamente.';
-            break;
-          case 'auth/wrong-password':
+        .then(userCredentials => {
+          const user = userCredentials.user;
+          Alert.alert(
+            "Usuário autenticado com sucesso",
+            "Seja bem-vindo(a)!"
+          );
+          limparInputs();
+          navigation.navigate('screens/perfil/perfil', { userInfo: { email: user.email, uid: user.uid } });
+        })
+        .catch(error => {
+          let errorMessage;
+          switch (error.code) {
+            case 'auth/user-not-found':
+              errorMessage = 'Usuário não encontrado. Verifique seu email e tente novamente.';
+              break;
+            case 'auth/wrong-password':
               errorMessage = 'Senha incorreta. Verifique sua senha e tente novamente.';
               break;
-          case 'auth/invalid-email':
+            case 'auth/invalid-email':
               errorMessage = 'Email incorreto. Verifique a formatação do mesmo e tente novamente.';
               break;
-          case 'auth/invalid-credential':
+            case 'auth/invalid-credential':
               errorMessage = 'Senha ou email incorreto.';
               break;
-          default:
-              errorMessage = `Ocorreu um erro inesperado. ${error}`;
+            default:
+              errorMessage = `Ocorreu um erro inesperado. ${error.message}`;
               break;
-        }
-
+          }
           Alert.alert('Erro ao fazer login', errorMessage);
-      });
+        });
     } else {
-      Alert.alert('Erro', `Preencha todos os campos! ${email} ${password}`);
+      Alert.alert('Erro', 'Preencha todos os campos!');
     }
   };
 
@@ -82,11 +70,11 @@ const LoginScreen = () => {
         </Link>
       </TouchableOpacity>
 
-      {/* Logo do aplicativo */}
-      <View style={styles.careMapContainer}>
-        <Text style={styles.careText}>Care</Text>
-        <Text style={styles.mapText}>map</Text>
-      </View>
+      {/* Imagem no lugar do CareMap */}
+      <Image
+        source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} // Substitua com o nome da sua imagem
+        style={styles.logoImage}
+      />
 
       {/* Imagem acima do título */}
       <Image source={require('../../../../assets/images/perfil.png')} style={styles.image} />
@@ -120,9 +108,7 @@ const LoginScreen = () => {
 
       {/* Botão de login */}
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Link href="../forms/forms">
-          <Text style={styles.loginButtonText}>Login</Text>
-        </Link>
+        <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
 
       {/* Continue com */}
@@ -135,13 +121,13 @@ const LoginScreen = () => {
       {/* Ícones de redes sociais */}
       <View style={styles.socialIconsContainer}>
         <TouchableOpacity style={styles.socialButton}>
-          <MaterialIcons name="facebook" size={40} style={styles.imageFacebook}></MaterialIcons>
+          <MaterialIcons name="facebook" size={40} style={styles.imageFacebook} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialButton}>
-          <Image source={require('../../../../assets/images/social.png')} style={styles.socialImage}></Image>
+          <Image source={require('../../../../assets/images/social.png')} style={styles.socialImage} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialButton}>
-         <MaterialIcons name="apple" size={44} style={styles.imageApple}></MaterialIcons>
+          <MaterialIcons name="apple" size={44} style={styles.imageApple} />
         </TouchableOpacity>
       </View>
     </View>
@@ -160,28 +146,18 @@ const styles = StyleSheet.create({
     top: "9%",
     zIndex: 1,
   },
-  careMapContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    top: "-9%",
-    fontSize: 20,
-  },
-  careText: {
-    color: '#226752',
-    fontWeight: 'bold',    
-    fontSize: 22,
-  },
-  mapText: {
-    color: '#000',
-    fontWeight: '300',
-    fontSize: 22,
+  logoImage: {
+    width: 52, // Ajuste o tamanho da logo
+    height: 50,
+    alignSelf: 'center',
+    marginBottom: 70,
   },
   image: {
     width: 100,
     height: 100,
     alignSelf: 'center',
     marginBottom: 20,
-    marginTop: "-5%"
+    marginTop: "-5%",
   },
   title: {
     fontSize: 24,
