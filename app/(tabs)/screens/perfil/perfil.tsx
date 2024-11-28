@@ -1,10 +1,54 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { auth, db } from '@/firebase_config';
+import { collection, addDoc, Timestamp, doc, setDoc, getDoc } from 'firebase/firestore';
 
 const UserProfileScreen = () => {
+  const [user, setUser] = useState(null);
+  const [users, setUsers] = useState({ Email: '', Nome: '' });
+
+  auth.onAuthStateChanged((user) => { 
+    setUser(user) 
+  });
+
+  let userUIDLoged;
+    if(user) {
+        userUIDLoged = user.uid;
+    }
+
+    async function fetchContact() {
+      try {
+          // recupera os dados do contato pela id recuperada da URL
+          const UsersDoc = await getDoc(doc(db, 'Users', userUIDLoged));
+          if (UsersDoc.exists()) {
+              // atualiza o estado do contato com os dados recuperados pelo id
+              setUsers(UsersDoc.data());
+
+              console.log(users)
+          } else {
+              Alert.alert("Usuário não encontrado, contate um adm.")
+          }
+      } catch (error) {
+          // Alert.alert("deu ruim no CATCH" + ` ${error}`)
+      }
+  }
+    useEffect(() => {
+      fetchContact(); //chama a função
+  }, [userUIDLoged]);
+
+  const refreshData = () => {
+    fetchContact();
+  };
+
+  function userSignOut() {
+    auth.signOut()
+    // navigation.navigate('Login');
+  }
+
   return (
     <View style={styles.container}>
+
       {/* Imagem do perfil */}
       <Image
         style={styles.profileImage}
@@ -12,15 +56,30 @@ const UserProfileScreen = () => {
       />
 
       {/* Nome do usuário */}
-      <Text style={styles.userName}>Maria Viana</Text>
+      <Text style={styles.userName}>{user ? users.Nome : 'Usuário não autenticado'}</Text>
 
       {/* Username do usuário */}
-      <Text style={styles.userHandle}>@mariaviana</Text>
+      <Text style={styles.userHandle}>@{user ? users.Nome : ''}</Text>
 
       {/* Botão de editar perfil */}
-      <TouchableOpacity style={styles.editProfileButton}>
-        <Text style={styles.editProfileText}>Editar perfil</Text>
-      </TouchableOpacity>
+      <View style={styles.divBtns}>
+        <TouchableOpacity style={styles.editProfileButton}>
+          <Text style={styles.editProfileText}>Editar perfil</Text>
+        </TouchableOpacity>
+
+        {user ? (
+          <View style={styles.btnDiv2}>
+            <TouchableOpacity style={styles.editProfileButton} onPress={refreshData}>
+              <Text style={styles.editProfileText}>Atualizar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.editProfileButton} onPress={userSignOut}>
+              <Text style={styles.editProfileText}>Sair do perfil</Text>
+            </TouchableOpacity>
+          </View>
+        ) : ''}
+      </View>
+      
 
       {/* Linha divisória */}
       <Image
@@ -171,7 +230,14 @@ const styles = StyleSheet.create({
     top: 10,
     left: 12,
   },
-
+  divBtns: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  btnDiv2: {
+    display: "flex",
+    flexDirection: "row",
+  },
  
  
 });

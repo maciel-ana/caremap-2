@@ -9,19 +9,67 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useNavigation } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FaGoogle } from 'react-icons/fa';
+import { auth } from '@/firebase_config';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+
+  const limparInputs = () => {
+    setEmail("");
+    setPassword("");
+  }
 
   const handleLogin = () => {
-    if (email === 'test@example.com' && password === 'password') {
-      Alert.alert('Login bem-sucedido', 'Bem-vindo!');
+    if (email != '' && password != '') {
+      auth.signInWithEmailAndPassword(email, password)
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        Alert.alert(
+          "Usuário autenticado com sucesso",
+          "Seja bem vindo(a)!"
+        );
+
+        const userInfo = {
+            email: user.email,
+            uid: user.uid,
+        };
+
+        // lógica para enviar o login para a outras pags
+        
+        limparInputs();
+
+        navigation.navigate('screens/perfil/perfil', { userInfo });
+      })
+      .catch(error => {
+        let errorMessage;
+
+        switch (error.code) {
+          case 'auth/user-not-found':
+            errorMessage = 'Usuário não encontrado. Verifique seu email e tente novamente.';
+            break;
+          case 'auth/wrong-password':
+              errorMessage = 'Senha incorreta. Verifique sua senha e tente novamente.';
+              break;
+          case 'auth/invalid-email':
+              errorMessage = 'Email incorreto. Verifique a formatação do mesmo e tente novamente.';
+              break;
+          case 'auth/invalid-credential':
+              errorMessage = 'Senha ou email incorreto.';
+              break;
+          default:
+              errorMessage = `Ocorreu um erro inesperado. ${error}`;
+              break;
+        }
+
+          Alert.alert('Erro ao fazer login', errorMessage);
+      });
     } else {
-      Alert.alert('Erro', 'Email ou senha incorretos.');
+      Alert.alert('Erro', `Preencha todos os campos! ${email} ${password}`);
     }
   };
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "992757382800",
+    "project_id": "caremap-8d91d",
+    "storage_bucket": "caremap-8d91d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992757382800:android:e5640bfffdc9baaa21a215",
+        "android_client_info": {
+          "package_name": "com.caremap.caremap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuYp22qfj2GOt_BeO6U2RpxpDREkMCYeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

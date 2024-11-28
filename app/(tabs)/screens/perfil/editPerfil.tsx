@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,17 +10,76 @@ import {
   ScrollView,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { auth, db } from '@/firebase_config';
+import { collection, addDoc, Timestamp, doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 
 const EditProfileScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [birthdate, setBirthdate] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(true);
+  const [isEditable, setIsEditable] = useState(false);
 
-  const handleSave = () => {
-    Alert.alert('Sucesso', 'Perfil atualizado com sucesso!');
+  const [user, setUser] = useState(null);
+  const [users, setUsers] = useState({ Email: '', Nome: '', DataNascimento: '' });
+
+  auth.onAuthStateChanged((user) => { 
+    setUser(user) 
+  });
+
+  let userUIDLoged;
+    if(user) {
+        userUIDLoged = user.uid;
+
+        console.log(`uid: ${userUIDLoged}`);
+    } else {
+      console.log("fds")
+    }
+
+    useEffect(() => {
+      async function fetchContact() {
+        try {
+          // Recupera os dados do contato pela ID
+          const UsersDoc = await getDoc(doc(db, 'Users', userUIDLoged));
+          if (UsersDoc.exists()) {
+            const userData = UsersDoc.data();
+            setUsers(userData);
+            setName(userData.Nome);
+            setEmail(userData.Email);
+            setBirthdate(userData.DataNascimento);
+            console.log(userData.DataNascimento); 
+          } else {
+            Alert.alert("Usuário não encontrado, contate um adm.");
+          }
+        } catch (error) {
+          // Alert.alert(`${error}`);
+        }
+      }
+    
+      fetchContact(); // Chama a função
+    }, [userUIDLoged]);
+    
+
+  const handleSave = async () => {
+    if (!user) {
+      Alert.alert('Erro', 'Você precisa estar autenticado para salvar alterações.');
+      return;
+    }
+  
+    try {
+      // Referência ao documento do usuário com base no UID
+      const userDocRef = doc(db, 'Users', user.uid);
+  
+      // Atualiza apenas os campos que foram editados
+      await updateDoc(userDocRef, {
+        Nome: name,
+        Email: email,
+        DataNascimento: birthdate,
+      });
+  
+      Alert.alert('Sucesso', 'Perfil atualizado com sucesso!');
+    } catch (error) {
+      Alert.alert('Erro', `Não foi possível salvar as alterações: ${error.message}`);
+    }
   };
 
   return (
@@ -47,56 +106,32 @@ const EditProfileScreen = () => {
         style={styles.input}
         placeholder="Nome"
         placeholderTextColor="grey"
-        value={name}
+        value={user ? name : 'Usuário não autenticado'}
         onChangeText={setName}
+        editable={!!user} // Desativa se o usuário não estiver autenticado
       />
       <TextInput
         style={styles.input}
         placeholder="Email"
         placeholderTextColor="grey"
-        value={email}
+        value={user ? email : 'Usuário não autenticado'}
         onChangeText={setEmail}
         keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Nome de Usuário"
-        placeholderTextColor="grey"
-        value={username}
-        onChangeText={setUsername}
+        editable={!!user} // Desativa se o usuário não estiver autenticado
       />
       <TextInput
         style={styles.input}
         placeholder="Data de Nascimento"
         placeholderTextColor="grey"
-        value={birthdate}
+        value={user ? birthdate : 'Usuário não autenticado'}
         onChangeText={setBirthdate}
         keyboardType="numeric"
+        editable={!!user} // Desativa se o usuário não estiver autenticado
       />
-      <View style={styles.passwordContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          placeholderTextColor="grey"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={showPassword}
-        />
-        <TouchableOpacity
-          onPress={() => setShowPassword(!showPassword)}
-          style={styles.eyeIconContainer}
-          accessibilityLabel="Mostrar ou ocultar senha"
-        >
-          <Image
-            style={styles.eyeIcon}
-            source={require('../../../../assets/images/olhos.png')}
-          />
-        </TouchableOpacity>
-      </View>
 
       {/* Botão de salvar */}
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-        <Text style={styles.saveButtonText}>Salvar</Text>
+        <Text style={[styles.saveButtonText, !user && { backgroundColor: '#ccc' }]} onPress={handleSave} disabled={!user}>Salvar</Text>
       </TouchableOpacity>
 
       {/* Botão de voltar */}

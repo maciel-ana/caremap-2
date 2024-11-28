@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Animated, Image, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Animated, Image, ScrollView, Alert } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationProp } from '@react-navigation/native';
 import { Calendar } from 'react-native-calendars';
+import { collection, addDoc, Timestamp, doc, getDoc } from "firebase/firestore";
+import { db } from '@/firebase_config';
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -17,6 +19,11 @@ export default function Consulta({ navigation }: Props) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
+  const limparInputs = () => {
+    setSelectedDate('');
+    setSelectedTime(null)
+  }
 
   // Função para voltar
   const handleBackPress = () => {
@@ -47,11 +54,25 @@ export default function Consulta({ navigation }: Props) {
   };
 
   // Confirmar agendamento
-  const handleConfirmAppointment = () => {
+  const handleConfirmAppointment = async () => {
     if (selectedDate && selectedTime) {
-      navigation.navigate('ConfirmationPage', { date: selectedDate, time: selectedTime });
+      try {
+        const consultasDocRef = collection(db, "Consultas");
+
+        await addDoc(consultasDocRef, {
+          Dra: "Mariana Carvalho",
+          Data: selectedDate,
+          Hora: selectedTime
+        })
+
+        limparInputs();
+
+        Alert.alert("Sucesso!", `Consulta agendada para as ${selectedTime} do dia ${selectedDate}.`)
+      } catch (error) {
+        Alert.alert("Erro: ", `${error}.`)
+      }
     } else {
-      alert('Por favor, selecione uma data e um horário.');
+      Alert.alert('Por favor, selecione uma data e um horário.');
     }
   };
 

@@ -52,16 +52,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'rgba(34, 103, 82, 0.8)', // Cor com 70% de opacidade
+    backgroundColor: 'rgba(85, 146, 119, 0.7)', // Tom mais claro com 70% de opacidade
     fontFamily: 'Poppins'
   },
+  
   title: {
     paddingTop: '20%',
     paddingVertical: 8,
-    color: '#226752',
+    color: '#1A4C3D', // Tom mais escuro
     fontSize: 30,
     fontWeight: 'bold',
   },
+  
   map: {
     color: '#ffffff',
     fontWeight: '300',

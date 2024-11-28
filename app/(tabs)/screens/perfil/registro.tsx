@@ -1,30 +1,86 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
-import { Link } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
+import { auth, db } from '@/firebase_config';
+import { Email } from '@mui/icons-material';
+import { collection, addDoc, Timestamp, doc, setDoc } from 'firebase/firestore';
+import { Link, useNavigation } from 'expo-router';
 
 const LoginScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [dataNascimento, setDataNascimento] = useState('')
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigation = useNavigation();
 
-  const handleLogin = () => {
+  const limparInputs = () => {
+    setName(''),
+    setEmail(''),
+    setDataNascimento(''),
+    setConfirmPassword(''),
+    setPassword('')
+  }
+
+  const handleRegistro = async () => {
     if (password !== confirmPassword) {
       Alert.alert('Erro', 'As senhas não coincidem.');
       return;
     }
-    if (!email || !password) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos.');
-      return;
-    }
+    
     // Simulação de login com dados fixos
-    if (email === 'test@example.com' && password === 'password') {
-      Alert.alert('Login bem-sucedido', 'Bem-vindo!');
+    if (email != '' && password != '') {
+      try {
+        const userCredentials = await auth.createUserWithEmailAndPassword(email, password);
+
+        const user = userCredentials.user;
+
+        const userDocRef = doc(db, "Users", user.uid);
+
+        await setDoc(userDocRef, {
+          Email: user.email,
+          Nome: name,
+          DataNascimento: dataNascimento
+        })
+
+        limparInputs();
+
+        const userInfo = {
+          email: user.email,
+          uid: user.uid,
+        };
+
+        Alert.alert('Bem vindo', `Usuário "${email}" cadastrado com sucesso!`);
+
+        navigation.navigate('screens/perfil/perfil', { userInfo });
+      } catch (error) {
+        let errorMessage;
+
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+              errorMessage = 'Este email já está em uso. Por favor, use outro email.';
+              break;
+          case 'auth/invalid-email':
+              errorMessage = 'Formato de email inválido. Por favor, insira um email válido.';
+              break;
+          case 'auth/operation-not-allowed':
+              errorMessage = 'O registro de usuários está desativado. Por favor, entre em contato com o suporte.';
+              break;
+          case 'auth/weak-password':
+              errorMessage = 'A senha é muito curta. Por favor, insira uma senha com pelo menos 6 caracteres.';
+              break;
+          default:
+              errorMessage = `Ocorreu um erro inesperado. Por favor, tente novamente mais tarde. erro: ${error}`;
+              break;
+      }
+
+      // Alerta de erro
+      Alert.alert('Erro ao registrar', errorMessage);
+      }
     } else {
-      Alert.alert('Erro', 'Email ou senha incorretos.');
+      Alert.alert('Erro', 'Preencha todos os dados!');
     }
   };
 
@@ -72,6 +128,16 @@ const LoginScreen = () => {
         autoCapitalize="none"
       />
 
+      {/* Campo de Data de nascimento */}
+      <TextInput
+        style={styles.input}
+        placeholder="Data de nascimento"
+        placeholderTextColor="#666"
+        value={dataNascimento}
+        onChangeText={setDataNascimento}
+        autoCapitalize="words"
+      />
+
       {/* Campo de Senha */}
       <View style={styles.passwordContainer}>
         <TextInput
@@ -109,7 +175,7 @@ const LoginScreen = () => {
       </View>
 
       {/* Botão de Registro */}
-      <TouchableOpacity style={styles.RegistroButton} onPress={handleLogin}>
+      <TouchableOpacity style={styles.RegistroButton} onPress={handleRegistro}>
         <Link href="../forms/forms">
           <Text style={styles.loginButtonText}>Registrar</Text>
         </Link>
