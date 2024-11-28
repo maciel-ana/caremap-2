@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 25,
-    top: -60, 
+    top: -30, 
   },
   careText: {
     color: '#226752',

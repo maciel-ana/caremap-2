@@ -1,8 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, Pressable } from "react-native";
-import { Link } from 'expo-router';
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Constants from 'expo-constants';
-
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -19,16 +17,12 @@ export default function Indexn() {
 
         {/* Botão para acessar a conta */}
         <TouchableOpacity style={styles.buttonEnter}>
-            <Link href="../screens/perfil/Login">
-              <Text style={styles.buttonTextEnter}>Entre</Text>
-            </Link>
+          <Text style={styles.buttonTextEnter}>Entre</Text>
         </TouchableOpacity>
 
         {/* Botão para criar uma conta */}
         <TouchableOpacity style={styles.buttonCreateAccount}>
-            <Link href="../screens/perfil/Registro">
-              <Text style={styles.buttonTextCreateAccount}>Crie uma conta</Text>
-            </Link>
+          <Text style={styles.buttonTextCreateAccount}>Crie uma conta</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -72,26 +66,27 @@ const styles = StyleSheet.create({
     fontWeight: '200',
   },
   buttonEnter: {
-    backgroundColor: '#619C95',
-    borderRadius: 15,            
-    textAlign: 'center',
-    alignItems: 'center',       
-    paddingVertical: 15,        
-    marginVertical: 10,         
-    width: 237,                 
+    backgroundColor: '#619C95', // Cor do botão "Entre"
+    borderRadius: 15,            // Bordas arredondadas
+    paddingVertical: 10,         // Padding vertical
+    paddingHorizontal: 20,       // Padding horizontal
+    marginVertical: 10,          // Espaço entre os botões
+    width: 237,                 // Largura do botão
     height:48 ,
+    alignItems: 'center',        // Centraliza o texto no botão
+    
   },
   buttonTextEnter: {
-    color: 'white',              
-    fontSize: 16,                
-    fontWeight: 'bold',         
+    color: 'white',              // Cor do texto do botão "Entre"
+    fontSize: 16,                // Tamanho do texto do botão
+    fontWeight: 'bold',          // Negrito
   },
   buttonCreateAccount: {
     backgroundColor: 'white',    
     borderRadius: 15,             
     borderWidth: 2,             
     borderColor: '#619C95',       // Cor da borda
-    paddingVertical: 15,          // Padding vertical
+    paddingVertical: 10,          // Padding vertical
     paddingHorizontal: 20,        // Padding horizontal
     marginVertical: 10,           // Espaço entre os botões
     width: 237,      

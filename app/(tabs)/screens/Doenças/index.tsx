@@ -1,7 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 
 const CareMap: React.FC = () => {
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -12,7 +14,7 @@ const CareMap: React.FC = () => {
       </View>
 
       <Image
-        source={require('../../../../assets/images/img.png')} // Substituído por require para evitar problemas
+        source={require('../../../../assets/images/img.png')} 
         style={styles.image}
       />
 
@@ -30,7 +32,23 @@ const CareMap: React.FC = () => {
           – Chiados no peito ou falta de fôlego.
         </Text>
 
-        <Text style={styles.readMore}>Ler mais</Text>
+        {/* Texto expandido ao clicar em "Ler mais" */}
+        {showMore && (
+          <Text style={styles.moreInfo}>
+            A Fibrose Cística é causada por mutações no gene CFTR. 
+            Essa condição é herdada de forma recessiva, ou seja, 
+            o indivíduo precisa herdar duas cópias do gene alterado (uma de cada progenitor) para desenvolver a doença.
+            {'\n\n'}
+            É fundamental o diagnóstico precoce para o início do tratamento adequado, que pode incluir fisioterapia respiratória, medicamentos para reduzir infecções, e suporte nutricional para ajudar na digestão.
+          </Text>
+        )}
+
+        {/* Botão "Ler mais" */}
+        <TouchableOpacity onPress={() => setShowMore(!showMore)}>
+          <Text style={styles.readMore}>
+            {showMore ? 'Ler menos' : 'Ler mais'}
+          </Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -57,7 +75,6 @@ const styles = StyleSheet.create({
   map: {
     color: '#000000',
     fontWeight: '300',
-
   },
   image: {
     width: 379,
@@ -65,7 +82,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     resizeMode: 'cover',
-    left:20
+    left: 20,
   },
   content: {
     padding: 20,
@@ -73,7 +90,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     marginHorizontal: 15,
-    marginTop: -15, // Reduzido para integrar melhor ao header
+    marginTop: -15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -102,12 +119,18 @@ const styles = StyleSheet.create({
     color: '#444',
     lineHeight: 22,
   },
+  moreInfo: {
+    fontSize: 14,
+    color: '#444',
+    lineHeight: 22,
+    marginTop: 10,
+  },
   readMore: {
     fontSize: 14,
     color: '#619C95',
     marginTop: 20,
     textAlign: 'center',
-    textDecorationLine: 'underline', // Para indicar que é clicável
+    textDecorationLine: 'underline',
   },
 });
 

@@ -1,24 +1,36 @@
 import React from 'react';
-import { View, Text, TextInput, Image, ScrollView, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native';
+import { View, Text, TextInput, Image, ScrollView, TouchableOpacity, StyleSheet, ImageSourcePropType, Alert, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 interface Specialist {
   name: string;
   specialty: string;
   distance: string;
   image: ImageSourcePropType; // Tipando a imagem
 }
+
 const HomeScreen = () => {
   const specialists: Specialist[] = [
     { name: 'Mariana Carvalho', specialty: 'Geneticista', distance: '10km', image: require('../../../../assets/images/pessoa1.jpg') },
     { name: 'Matheus Castro', specialty: 'Geneticista', distance: '10km', image: require('../../../../assets/images/pessoa2.jpg') },
     { name: 'Caio Graco', specialty: 'Geneticista', distance: '10km', image: require('../../../../assets/images/pessoa3.jpg') },
   ];
+
+  // Função para iniciar a chamada de emergência
+  const handleEmergencyCall = () => {
+    const emergencyNumber = '192'; // Substitua pelo número de emergência desejado
+    Linking.openURL(`tel:${emergencyNumber}`).catch(() => {
+      Alert.alert('Erro', 'Não foi possível iniciar a chamada. Verifique as permissões do aplicativo.');
+    });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
         <Text style={styles.care}>Care</Text>
         <Text style={styles.mapp}>map</Text>
       </View>
+
       <Text style={styles.servicesTitle}>Todos os serviços para {'\n'}sua saúde</Text>
       <View style={styles.searchBarContainer}>
         <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
@@ -28,6 +40,7 @@ const HomeScreen = () => {
           placeholderTextColor="#999"
         />
       </View>
+
       <View style={styles.services}>
         <TouchableOpacity style={styles.serviceItem}>
           <Image source={require('../../../../assets/images/icone1.png')} style={styles.serviceIcon} />
@@ -41,11 +54,12 @@ const HomeScreen = () => {
           <Image source={require('../../../../assets/images/icone3.png')} style={styles.serviceIcon} />
           <Text>Hospitais</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.serviceItem}>
+        <TouchableOpacity style={styles.serviceItem} onPress={handleEmergencyCall}>
           <Image source={require('../../../../assets/images/icone4.png')} style={styles.serviceIcon} />
           <Text>Emergência</Text>
         </TouchableOpacity>
       </View>
+
       <View style={styles.mapContainer}>
         <View style={styles.mapContent}>
           <View style={styles.mapTextContainer}>
@@ -57,6 +71,7 @@ const HomeScreen = () => {
           <Image source={require('../../../../assets/images/maps.webp')} style={styles.mapImage} />
         </View>
       </View>
+
       <View style={styles.specialistsContainer}>
         <Text style={styles.specialistsTitle}>Top especialistas</Text>
         <TouchableOpacity>
@@ -76,6 +91,8 @@ const HomeScreen = () => {
     </ScrollView>
   );
 };
+
+
 const styles = StyleSheet.create({
     container: {
       padding: 16,
