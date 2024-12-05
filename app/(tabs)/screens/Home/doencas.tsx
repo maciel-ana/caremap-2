@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Animated, Image } from 'react-native';
+import { Link } from 'expo-router';
 
 const diseases = [
   'Fibrose Cística',
@@ -16,7 +17,7 @@ const DiseaseList = () => {
     <ScrollView style={styles.container}>
       <View style={styles.headerContainer}>
         {/* Substituindo o texto por uma imagem */}
-        <Image source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} style={styles.logo} />
+          <Image source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} style={styles.logo} />
         <View style={styles.headerLine} />
       </View>
       {diseases.map((disease, index) => {

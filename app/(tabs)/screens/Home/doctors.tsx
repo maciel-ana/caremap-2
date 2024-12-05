@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import { Link } from 'expo-router';
 
 
 type Doutor = {
@@ -66,7 +67,9 @@ const Doutores: React.FC<DoutoresProps> = ({ onBackPress, onDoutorPress }) => {
   return (
     <View style={styles.fullScreenContainer}>
       <TouchableOpacity onPress={onBackPress} style={styles.backButton}>
+      <Link href="/(tabs)/screens/Home/home">
         <Icon name="arrow-back" size={24} color="#226752" />
+      </Link>
       </TouchableOpacity>
       <Text style={styles.title}>Doutores</Text>
 
@@ -104,14 +107,14 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    left: 16,
-    top: 50,
+    paddingLeft: 20,
+    paddingTop: 50,
   },
   title: {
     fontSize: 19,
     fontWeight: 'bold',
     color: '#226752',
-    marginTop: 50,
+    marginTop: '20%',
     textAlign: 'center',
     marginBottom: 20, // Adicionando espaçamento inferior
   },

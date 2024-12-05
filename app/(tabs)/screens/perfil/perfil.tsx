@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from 'react-na
 import { MaterialIcons } from '@expo/vector-icons';
 import { auth, db } from '@/firebase_config';
 import { collection, addDoc, Timestamp, doc, setDoc, getDoc } from 'firebase/firestore';
+import { Link } from 'expo-router';
 
 const UserProfileScreen = () => {
   const [user, setUser] = useState(null);
@@ -64,7 +65,9 @@ const UserProfileScreen = () => {
       {/* Botão de editar perfil */}
       <View style={styles.divBtns}>
         <TouchableOpacity style={styles.editProfileButton}>
-          <Text style={styles.editProfileText}>Editar perfil</Text>
+          <Link href="/(tabs)/screens/perfil/editPerfil">
+            <Text style={styles.editProfileText}>Editar perfil</Text>
+          </Link>
         </TouchableOpacity>
 
         {user ? (
@@ -90,13 +93,16 @@ const UserProfileScreen = () => {
       {/* Seção de opções */}
       <View style={styles.optionsContainer}>
         {/* Opção Formulário */}
-        <TouchableOpacity style={styles.optionContainer}>
+        <Link href="../screens/forms/forms" style={styles.optionContainer}>
           <Image
             style={styles.optionImage}
             source={require('../../../../assets/images/retangulo.png')} // Imagem local do formulário
           />
-          <Text style={styles.optionText}>Formulário</Text>
-        </TouchableOpacity>
+          <View style={styles.optionText2}>
+            <Text style={styles.textForms}>Formulário</Text>
+          </View>
+        </Link>
+      
 
         {/* Opção Política de Privacidade */}
         <TouchableOpacity style={styles.optionContainer}>
@@ -203,6 +209,7 @@ const styles = StyleSheet.create({
   optionContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    textAlign:'center',
     marginBottom: 20,
     top: 50
 
@@ -216,6 +223,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#226752',
     flex: 1,
+  },
+  optionText2:{
+    paddingLeft: '16%',
+    paddingBottom: '3%',
+    flex: 1,
+  },
+  textForms: {
+    fontSize: 18,
+    color: '#226752',
   },
   imageContainer: {
     position: 'relative',

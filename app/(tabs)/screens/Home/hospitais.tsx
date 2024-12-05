@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationProp } from '@react-navigation/native';
+import { Link } from 'expo-router';
 
 interface HospitaisProps {
   navigation: NavigationProp<any>;
@@ -83,9 +84,9 @@ const Hospitais: React.FC<HospitaisProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-        <Icon name="arrow-back" size={24} color="#226752" />
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
+          <Icon name="arrow-back" size={24} color="#226752" />
+        </TouchableOpacity>
       <Text style={styles.headerTitle}>Hospitais</Text>
       <FlatList
         data={data}

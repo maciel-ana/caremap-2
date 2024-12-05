@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, Image, ScrollView, TouchableOpacity, StyleSheet, ImageSourcePropType, Alert, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Link } from 'expo-router';
 
 interface Specialist {
   name: string;
@@ -30,7 +31,6 @@ const HomeScreen = () => {
         {/* Substituindo o texto Care e map por uma imagem */}
         <Image source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} style={styles.logo} />
       </View>
-
       <Text style={styles.servicesTitle}>Todos os serviços para {'\n'}sua saúde</Text>
       <View style={styles.searchBarContainer}>
         <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
@@ -43,15 +43,22 @@ const HomeScreen = () => {
 
       <View style={styles.services}>
         <TouchableOpacity style={styles.serviceItem}>
-          <Image source={require('../../../../assets/images/icone1.png')} style={styles.serviceIcon} />
-          <Text>Doutor</Text>
+          <Link href="/(tabs)/screens/Home/doctors">
+            <Image source={require('../../../../assets/images/icone1.png')} style={styles.serviceIcon} />
+          </Link>
+            <Text>Doutor</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.serviceItem}>
+          <Link href="/(tabs)/screens/Home/doencas">
+            <Image source={require('../../../../assets/images/icone2.png')} style={styles.serviceIcon} />
+          </Link>
+            <Text>Doenças</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.serviceItem}>
-          <Image source={require('../../../../assets/images/icone2.png')} style={styles.serviceIcon} />
-          <Text>Doenças</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.serviceItem}>
+          <Link href="/(tabs)/screens/Home/hospitais">
           <Image source={require('../../../../assets/images/icone3.png')} style={styles.serviceIcon} />
+          </Link>
           <Text>Hospitais</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.serviceItem} onPress={handleEmergencyCall}>
@@ -65,7 +72,9 @@ const HomeScreen = () => {
           <View style={styles.mapTextContainer}>
             <Text style={styles.mapText}>Encontre hospitais perto de você!</Text>
             <TouchableOpacity style={styles.mapButton}>
-              <Text style={styles.mapButtonText}>Ver</Text>
+              <Link href="/screens/Maps/App">
+                <Text style={styles.mapButtonText}>Ver</Text>
+              </Link>
             </TouchableOpacity>
           </View>
           <Image source={require('../../../../assets/images/maps.webp')} style={styles.mapImage} />
@@ -74,16 +83,20 @@ const HomeScreen = () => {
 
       <View style={styles.specialistsContainer}>
         <Text style={styles.specialistsTitle}>Top especialistas</Text>
-        <TouchableOpacity>
-          <Text style={styles.seeMore}>ver mais</Text>
-        </TouchableOpacity>
+          <TouchableOpacity>
+        <Link href="/(tabs)/screens/Home/doctors" style={styles.seeMore}>
+            <Text>ver mais</Text>
+        </Link>
+          </TouchableOpacity>
         <View style={styles.specialistsList}>
           {specialists.map((specialist, index) => (
             <View key={index} style={styles.specialistCard}>
-              <Image source={specialist.image} style={styles.specialistImage} />
-              <Text style={styles.specialistName}>{specialist.name}</Text>
-              <Text style={styles.specialistSpecialty}>{specialist.specialty}</Text>
-              <Text style={styles.specialistDistance}>{specialist.distance}</Text>
+              <Link href="/(tabs)/screens/Home/consultas">
+                <Image source={specialist.image} style={styles.specialistImage} />
+                <Text style={styles.specialistName}>{specialist.name}</Text>
+                <Text style={styles.specialistSpecialty}>{specialist.specialty}</Text>
+                <Text style={styles.specialistDistance}>{specialist.distance}</Text>
+                </Link>
             </View>
           ))}
         </View>
@@ -105,8 +118,7 @@ const styles = StyleSheet.create({
     logo: {
       width:53,  // Tamanho ajustado da largura (exemplo: 150)
       height: 51,  // Tamanho ajustado da altura (exemplo: 50)
-    },
-  
+  },
   servicesTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -219,20 +231,21 @@ const styles = StyleSheet.create({
   },
   seeMore: {
     color: '#3b8065',
-    alignSelf: 'flex-end',
     marginVertical: 8,
-    top: -60
+    marginLeft: '80%',
+    top: -55
   },
   specialistsList: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: '4%'
   },
   specialistCard: {
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,
-    padding: 18,
+    padding: 20,
     width: '30%',
     backgroundColor: '#f9f9f9', // Cor de fundo dos cards
     top: -50
@@ -251,6 +264,7 @@ const styles = StyleSheet.create({
   specialistSpecialty: {
     fontSize: 11,
     color: '#666',
+    paddingTop: '4%'
   },
   specialistDistance: {
     fontSize: 11,

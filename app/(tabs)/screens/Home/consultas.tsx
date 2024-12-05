@@ -6,6 +6,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { Calendar } from 'react-native-calendars';
 import { collection, addDoc, Timestamp, doc, getDoc } from "firebase/firestore";
 import { db } from '@/firebase_config';
+import { Link } from 'expo-router';
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -81,7 +82,9 @@ export default function Consulta({ navigation }: Props) {
       {/* Botão de voltar */}
       <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
         <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-          <Icon name="arrow-back" size={24} color="#226752" />
+          <Link href="/(tabs)/screens/Home/home">
+            <Icon name="arrow-back" size={24} color="#226752" />
+          </Link>
         </Animated.View>
       </TouchableOpacity>
 
@@ -98,7 +101,7 @@ export default function Consulta({ navigation }: Props) {
           <Text style={styles.itemSubtitle}>Geneticista</Text>
           <View style={styles.ratingContainer}>
             <View style={styles.starBox}>
-              <Icon name="star" size={14} color="black" />
+                <Icon name="star" size={14} color="black" />
             </View>
             <Text style={styles.ratingNumber}>5</Text>
           </View>

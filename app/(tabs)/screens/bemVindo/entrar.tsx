@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Constants from 'expo-constants';
+import { Link } from 'expo-router';
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -16,14 +17,15 @@ export default function Indexn() {
         <Text style={styles.subText}>Acesse sua conta ou crie uma!</Text>
 
         {/* Botão para acessar a conta */}
-        <TouchableOpacity style={styles.buttonEnter}>
+        <Link href="/(tabs)/screens/perfil/login" style={styles.buttonEnter}>
           <Text style={styles.buttonTextEnter}>Entre</Text>
-        </TouchableOpacity>
+        </Link>
 
         {/* Botão para criar uma conta */}
-        <TouchableOpacity style={styles.buttonCreateAccount}>
-          <Text style={styles.buttonTextCreateAccount}>Crie uma conta</Text>
-        </TouchableOpacity>
+        <Link href="/(tabs)/screens/perfil/registro" style={styles.buttonCreateAccount}>
+          <Text>Crie uma conta</Text>
+        </Link>
+        
       </View>
     </View>
   );
@@ -73,29 +75,29 @@ const styles = StyleSheet.create({
     marginVertical: 10,          // Espaço entre os botões
     width: 237,                 // Largura do botão
     height:48 ,
-    alignItems: 'center',        // Centraliza o texto no botão
-    
+    alignItems: 'center',        
+    paddingTop: '5%',
+    textAlign: 'center'
   },
   buttonTextEnter: {
-    color: 'white',              // Cor do texto do botão "Entre"
-    fontSize: 16,                // Tamanho do texto do botão
-    fontWeight: 'bold',          // Negrito
+    color: 'white',              
+    fontSize: 16,               
+    fontWeight: 'bold',          
   },
   buttonCreateAccount: {
     backgroundColor: 'white',    
     borderRadius: 15,             
     borderWidth: 2,             
-    borderColor: '#619C95',       // Cor da borda
-    paddingVertical: 10,          // Padding vertical
-    paddingHorizontal: 20,        // Padding horizontal
-    marginVertical: 10,           // Espaço entre os botões
+    borderColor: '#619C95',       
+    paddingVertical: 10,          
+    paddingHorizontal: 20,       
+    marginVertical: 10,           
     width: 237,      
     height:48 ,
-    alignItems: 'center',         // Centraliza o texto no botão
-  },
-  buttonTextCreateAccount: {
-    color: '#619C95',             // Cor do texto do botão "Crie uma conta"
-    fontSize: 14,                 // Tamanho do texto do botão
-    fontWeight: '400',           // Negrito
+    alignItems: 'center', 
+    textAlign: 'center',
+    color: '#619C95',
+    paddingTop: '5%',
+    fontWeight: '600' 
   },
 });

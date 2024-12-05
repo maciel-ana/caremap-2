@@ -24,7 +24,7 @@ export default function Page() {
                     poucos cliques.
                 </Text>
                 <Pressable style={styles.text}>
-                    <Link href="../screens/entrar/Index">
+                    <Link href="/(tabs)/screens/bemVindo/entrar">
                         <Text style={styles.text}>Começar</Text>
                     </Link>
                 </Pressable>

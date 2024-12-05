@@ -89,7 +89,7 @@ const LoginScreen = () => {
       {/* Seta no lado esquerdo */}
       <View style={styles.arrowContainer}>
         <TouchableOpacity onPress={() => Alert.alert('Voltar')}>
-          <Link href="../screens/entrar/Index">
+          <Link href="/(tabs)/screens/bemVindo/entrar">
             <MaterialIcons name="arrow-back" size={30} color="#1e1e1e" />
           </Link>
         </TouchableOpacity>

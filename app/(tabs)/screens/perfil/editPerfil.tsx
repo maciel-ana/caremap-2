@@ -12,6 +12,7 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { auth, db } from '@/firebase_config';
 import { collection, addDoc, Timestamp, doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
+import { Link } from 'expo-router';
 
 const EditProfileScreen = () => {
   const [name, setName] = useState('');
@@ -131,14 +132,20 @@ const EditProfileScreen = () => {
 
       {/* Botão de salvar */}
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-        <Text style={[styles.saveButtonText, !user && { backgroundColor: '#ccc' }]} onPress={handleSave} disabled={!user}>Salvar</Text>
+        <Text style={[styles.saveButtonText, !user && {}]} onPress={handleSave} disabled={!user}>Salvar</Text>
       </TouchableOpacity>
 
       {/* Botão de voltar */}
       <TouchableOpacity style={styles.backButton} onPress={() => Alert.alert('Voltando...')}>
-        <MaterialIcons name="arrow-back" size={24} color="#226752" />
-        <Text style={styles.backButtonText}>Voltar</Text>
+        <Link href="/(tabs)/screens/perfil/perfil" > 
+          <MaterialIcons name="arrow-back" size={24} color="#226752" />
+        </Link>
       </TouchableOpacity>
+      <View style={styles.voltar}>
+        <Link href="/(tabs)/screens/perfil/perfil">
+          <Text style={styles.backButtonText}>Voltar</Text>
+        </Link>
+      </View>
     </ScrollView>
   );
 };
@@ -219,13 +226,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     
   },
+  voltar: {
+    textAlign: 'center',
+    marginLeft: '45%',
+    marginTop: '-5%'
+  },
+
   backButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
-    top: 80
-
+    marginTop: "30%",
+    marginRight: '15%'
+    
   },
   backButtonText: {
     fontSize: 16,
