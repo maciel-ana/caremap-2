@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(34, 103, 82, 0.7)', // Cor com 70% de opacidade
+        backgroundColor: 'rgba(72, 201, 143, 0.534)', // Opacidade reduzida para 0.1, deixando bem claro
         fontFamily: 'Inter',
     },
     title: {

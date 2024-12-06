@@ -10,7 +10,9 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc } from 'firebase/firestore';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Link } from 'react-router-native';
 
 const App = () => {
   const [name, setName] = useState('');
@@ -27,25 +29,32 @@ const App = () => {
   const [acompanhamento, setAcompanhamento] = useState('');
   const [acessibilidade, setAcessibilidade] = useState('');
   const [detalhes, setDetalhes] = useState('');
+  const [termoAceito, setTermoAceito] = useState(false);
 
   const limparInputs = () => {
-    setName("");
-    setData("");
-    setGenero("");
-    setEmail("");
-    setTel("");
-    setCidade("");
-    setCEP("");
-    setDoença("");
-    setTratamentos("");
-    setFrequencia("");
-    setMedicamentos("");
-    setAcompanhamento("");
-    setAcessibilidade("");
-    setDetalhes("");
+    setName('');
+    setData('');
+    setGenero('');
+    setEmail('');
+    setTel('');
+    setCidade('');
+    setCEP('');
+    setDoença('');
+    setTratamentos('');
+    setFrequencia('');
+    setMedicamentos('');
+    setAcompanhamento('');
+    setAcessibilidade('');
+    setDetalhes('');
+    setTermoAceito(false);
   };
 
   const handleSubmit = async () => {
+    if (!termoAceito) {
+      Alert.alert('Erro', 'Você deve aceitar os Termos de Uso antes de enviar.');
+      return;
+    }
+
     if (
       name &&
       data &&
@@ -63,7 +72,7 @@ const App = () => {
       detalhes
     ) {
       try {
-        const formDocRef = collection(db, "Formulario");
+        const formDocRef = collection(db, 'Formulario');
         await addDoc(formDocRef, {
           Nome: name,
           Data: data,
@@ -81,12 +90,10 @@ const App = () => {
           Detalhes: detalhes,
         });
 
-        // Limpar os inputs após envio
         limparInputs();
-
         Alert.alert('Sucesso!', 'Formulário enviado com sucesso!');
       } catch (error) {
-        Alert.alert("Erro:", `${error}`);
+        Alert.alert('Erro', `${error}`);
       }
     } else {
       Alert.alert('Erro', 'Preencha todos os campos obrigatórios!');
@@ -96,11 +103,12 @@ const App = () => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        {/* Substituindo Caremap por logo */}
+        {/* Logo */}
         <View style={styles.logoContainer}>
-          <Image source={require('../../../../assets/images/LOGO CORACÃO PNG.png')} style={styles.logo} />
+          <Image source={require('../../../../assets/images/LOGO_CORACAO.png')} style={styles.logo} />
         </View>
 
+        {/* Seções do formulário */}
         <Text style={styles.subtitle}>Dados Pessoais</Text>
         <TextInput
           style={styles.input}
@@ -147,86 +155,28 @@ const App = () => {
           ))}
         </View>
 
-        {/* Formulário 2 */}
-        <Text style={styles.subtitle}>Localização</Text>
-        <TextInput
-          style={styles.input}
-          value={cidade}
-          onChangeText={setCidade}
-          placeholder="Cidade/Estado"
-          placeholderTextColor="#aaa"
-        />
-        <TextInput
-          style={styles.input}
-          value={CEP}
-          onChangeText={setCEP}
-          placeholder="CEP"
-          placeholderTextColor="#aaa"
-          keyboardType="numeric"
-        />
-        <Text style={styles.subtitle}>Informações de Saúde</Text>
-        <TextInput
-          style={styles.input}
-          value={doença}
-          onChangeText={setDoença}
-          placeholder="Tipo de Doença ou Síndrome"
-          placeholderTextColor="#aaa"
-        />
-        <TextInput
-          style={styles.input}
-          value={tratamentos}
-          onChangeText={setTratamentos}
-          placeholder="Tratamentos em Andamento"
-          placeholderTextColor="#aaa"
-        />
-        <TextInput
-          style={styles.input}
-          value={frequencia}
-          onChangeText={setFrequencia}
-          placeholder="Frequência de Atendimento Médico"
-          placeholderTextColor="#aaa"
-        />
-        <TextInput
-          style={styles.input}
-          value={medicamentos}
-          onChangeText={setMedicamentos}
-          placeholder="Medicamentos Específicos"
-          placeholderTextColor="#aaa"
-        />
-
-        {/* Formulário 3 */}
-        <Text style={styles.subtitle}>Necessidade de Acompanhamento Médico</Text>
-        <View style={styles.genderContainer}>
-          {['Sim', 'Não'].map((option) => (
-            <TouchableOpacity
-              key={option}
-              style={[styles.genderBox, acompanhamento === option && styles.selectedGender]}
-              onPress={() => setAcompanhamento(option)}
-            >
-              <Text style={[styles.genderText, acompanhamento === option && styles.selectedGenderText]}>
-                {option}
-              </Text>
-            </TouchableOpacity>
-          ))}
+        <Text style={styles.subtitle}>Termos de Uso</Text>
+        <View style={styles.termoContainer}>
+          <TouchableOpacity
+            onPress={() => setTermoAceito(!termoAceito)}
+            style={styles.checkRectangle}
+          >
+            {termoAceito && <MaterialIcons name="check" size={20} color="#226752" />}
+          </TouchableOpacity>
+          <Text style={styles.termoText}>
+            Li e estou de acordo com o
+            <Link to="/termos">
+              <Text style={styles.termHighlight}> Termo de Uso e Política de Privacidade</Text>
+            </Link>
+          </Text>
         </View>
-        <Text style={styles.subtitle}>Hospitais com Acessibilidade</Text>
-        <TextInput
-          style={styles.input}
-          value={acessibilidade}
-          onChangeText={setAcessibilidade}
-          placeholder="Hospitais com Acessibilidade"
-          placeholderTextColor="#aaa"
-        />
-        <TextInput
-          style={styles.input}
-          value={detalhes}
-          onChangeText={setDetalhes}
-          placeholder="Detalhes Adicionais"
-          placeholderTextColor="#aaa"
-        />
 
-        {/* Botão Enviar */}
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+        {/* Botão de envio */}
+        <TouchableOpacity
+          style={[styles.submitButton, !termoAceito && styles.disabledButton]}
+          onPress={handleSubmit}
+          disabled={!termoAceito}
+        >
           <Text style={styles.buttonText}>ENVIAR</Text>
         </TouchableOpacity>
       </View>
@@ -244,23 +194,12 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: -10,
+    marginBottom: 20,
   },
   logo: {
-    width: 52,
+    width: 150,
     height: 150,
     resizeMode: 'contain',
-  },
-  title: {
-    fontSize: 25,
-    color: '#226752',
-    textAlign: 'center',
-    marginBottom: 50,
-    fontWeight: 'bold',
-  },
-  map: {
-    fontWeight: '300',
-    color: 'black',
   },
   subtitle: {
     fontSize: 20,
@@ -300,6 +239,29 @@ const styles = StyleSheet.create({
   selectedGenderText: {
     fontWeight: 'bold',
   },
+  termoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  checkRectangle: {
+    width: 24,
+    height: 24,
+    borderWidth: 2,
+    borderColor: '#226752',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  termoText: {
+    fontSize: 14,
+    color: '#333',
+  },
+  termHighlight: {
+    color: '#226752',
+    fontWeight: 'bold',
+  },
   submitButton: {
     backgroundColor: '#226752',
     paddingVertical: 15,
@@ -311,6 +273,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  disabledButton: {
+    backgroundColor: '#aaa',
   },
 });
 

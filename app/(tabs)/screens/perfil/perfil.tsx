@@ -2,75 +2,73 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { auth, db } from '@/firebase_config';
-import { collection, addDoc, Timestamp, doc, setDoc, getDoc } from 'firebase/firestore';
-import { Link } from 'expo-router';
+import { getDoc, doc } from 'firebase/firestore';
+import { Link, useRouter } from 'expo-router';
 
 const UserProfileScreen = () => {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState({ Email: '', Nome: '' });
+  const router = useRouter();
 
-  auth.onAuthStateChanged((user) => { 
-    setUser(user) 
-  });
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return unsubscribe;
+  }, []);
 
-  let userUIDLoged;
-    if(user) {
-        userUIDLoged = user.uid;
-    }
+  const userUIDLoged = user?.uid;
 
-    async function fetchContact() {
-      try {
-          // recupera os dados do contato pela id recuperada da URL
-          const UsersDoc = await getDoc(doc(db, 'Users', userUIDLoged));
-          if (UsersDoc.exists()) {
-              // atualiza o estado do contato com os dados recuperados pelo id
-              setUsers(UsersDoc.data());
+  const fetchContact = async () => {
+    if (!userUIDLoged) return;
 
-              console.log(users)
-          } else {
-              Alert.alert("Usuário não encontrado, contate um adm.")
-          }
-      } catch (error) {
-          // Alert.alert("deu ruim no CATCH" + ` ${error}`)
+    try {
+      const UsersDoc = await getDoc(doc(db, 'Users', userUIDLoged));
+      if (UsersDoc.exists()) {
+        setUsers(UsersDoc.data());
+      } else {
+        Alert.alert("Usuário não encontrado, contate um adm.");
       }
-  }
-    useEffect(() => {
-      fetchContact(); //chama a função
+    } catch (error) {
+      Alert.alert("Erro ao buscar dados: ", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchContact();
   }, [userUIDLoged]);
 
   const refreshData = () => {
     fetchContact();
   };
 
-  function userSignOut() {
+  const userSignOut = () => {
     auth.signOut()
-    // navigation.navigate('Login');
-  }
+      .then(() => {
+        router.replace('/login');
+      })
+      .catch((error) => {
+        Alert.alert("Erro ao sair: ", error.message);
+      });
+  };
 
   return (
     <View style={styles.container}>
-
-      {/* Imagem do perfil */}
       <Image
         style={styles.profileImage}
-        source={require('../../../../assets/images/perfil.png')} // Imagem local
+        source={require('../../../../assets/images/perfil.png')}
       />
-
-      {/* Nome do usuário */}
       <Text style={styles.userName}>{user ? users.Nome : 'Usuário não autenticado'}</Text>
-
-      {/* Username do usuário */}
       <Text style={styles.userHandle}>@{user ? users.Nome : ''}</Text>
 
-      {/* Botão de editar perfil */}
       <View style={styles.divBtns}>
         <TouchableOpacity style={styles.editProfileButton}>
-          <Link href="/(tabs)/screens/perfil/editPerfil">
-            <Text style={styles.editProfileText}>Editar perfil</Text>
+          <Link href="/(tabs)/screens/Home/home">
+            <Text style={styles.editProfileText}>Home</Text>
           </Link>
         </TouchableOpacity>
 
-        {user ? (
+        {user && (
           <View style={styles.btnDiv2}>
             <TouchableOpacity style={styles.editProfileButton} onPress={refreshData}>
               <Text style={styles.editProfileText}>Atualizar</Text>
@@ -80,57 +78,37 @@ const UserProfileScreen = () => {
               <Text style={styles.editProfileText}>Sair do perfil</Text>
             </TouchableOpacity>
           </View>
-        ) : ''}
+        )}
       </View>
-      
 
-      {/* Linha divisória */}
-      <Image
-        source={require('../../../../assets/images/linha.png')} // Caminho da imagem da linha
-        style={styles.divider}
-      />
+      <Image source={require('../../../../assets/images/linha.png')} style={styles.divider} />
 
-      {/* Seção de opções */}
       <View style={styles.optionsContainer}>
-        {/* Opção Formulário */}
-        <Link href="../screens/forms/forms" style={styles.optionContainer}>
+        <Link href="/(tabs)/screens/forms/forms" style={styles.optionContainer}>
           <Image
             style={styles.optionImage}
-            source={require('../../../../assets/images/retangulo.png')} // Imagem local do formulário
+            source={require('../../../../assets/images/retangulo.png')}
           />
-          <View style={styles.optionText2}>
-            <Text style={styles.textForms}>Formulário</Text>
-          </View>
+          <Text style={styles.textForms}>Formulário</Text>
         </Link>
-      
 
-        {/* Opção Política de Privacidade */}
         <TouchableOpacity style={styles.optionContainer}>
           <Image
             style={styles.optionImage}
-            source={require('../../../../assets/images/retangulo.png')} // Imagem local para Política de Privacidade
+            source={require('../../../../assets/images/retangulo.png')}
           />
           <Text style={styles.optionText}>Política de Privacidade</Text>
         </TouchableOpacity>
 
-        <Image
-          source={require('../../../../assets/images/linha.png')} // Caminho da imagem da linha
-          style={styles.divider2}
-        />
+        <Image source={require('../../../../assets/images/linha.png')} style={styles.divider2} />
 
-        {/* Opção Sair com imagem sobreposta */}
         <TouchableOpacity style={styles.optionContainer}>
           <View style={styles.imageContainer}>
-            {/* Imagem de fundo */}
             <Image
               style={styles.optionImage}
-              source={require('../../../../assets/images/retangulo.png')} // Imagem de fundo
+              source={require('../../../../assets/images/retangulo.png')}
             />
-            {/* Seta sobreposta */}
-            <MaterialIcons
-              style={styles.arrowImage}
-              name="arrow-forward"
-            />
+            <MaterialIcons style={styles.arrowImage} name="arrow-forward" />
           </View>
           <Text style={styles.optionText}>Sair</Text>
         </TouchableOpacity>
@@ -139,7 +117,8 @@ const UserProfileScreen = () => {
   );
 };
 
-// Estilos
+// Estilos...
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

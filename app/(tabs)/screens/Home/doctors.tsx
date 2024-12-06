@@ -42,13 +42,13 @@ const doutoresData: Doutor[] = [
   },
   {
     nome: 'Dr. Lucas Mustafa',
-    especialidade: 'Geneticista',
+    especialidade: 'Geneticista ',
     distancia: '8Km de você',
     rating: 5,
     image: require('../../../../assets/images/pessoa4.jpeg'),
   },
   {
-    nome: 'Dr. Bruno Cavalcante',
+    nome: 'Dr. Bruno Cavalcante    ',
     especialidade: 'Geneticista',
     distancia: '8Km de você',
     rating: 5,
