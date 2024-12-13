@@ -84,7 +84,7 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 ---
 
 ## 🙌 Contribuições
-Contribuições são bem-vindas! Sinta-se à vontade para abrir *issues* ou enviar *pull requests* com melhorias.
+Contribuições são bem-vindas!
 
 ---
 
